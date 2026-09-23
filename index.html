@@ -4,111 +4,279 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Laporan Penyeliaan Kecemasan</title>
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    body { background-color: #f8f9fa; font-family: sans-serif; }
-    .card { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none; }
-    .bg-custom { background-color: #003366; color: white; }
-    .logo-img { width: 85px; height: auto; }
+    :root {
+      --neon-blue: #00f3ff;
+      --neon-purple: #9d00ff;
+      --neon-pink: #ff0055;
+      --neon-green: #00ff66;
+      --neon-yellow: #ffee00;
+      --bg-dark: #0a0e17;
+      --card-bg: rgba(16, 24, 40, 0.75);
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.12) 0%, transparent 40%);
+      font-family: 'Rajdhani', sans-serif;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    h1, h2, h3, h4, h5, .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    /* Glassmorphism Card */
+    .cyber-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.15), inset 0 0 15px rgba(0, 243, 255, 0.05);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .cyber-card:hover {
+      border-color: rgba(0, 243, 255, 0.4);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.25), inset 0 0 20px rgba(0, 243, 255, 0.1);
+    }
+
+    /* Logo Glow */
+    .logo-glow {
+      width: 95px;
+      height: auto;
+      filter: drop-shadow(0 0 12px rgba(0, 243, 255, 0.6));
+      transition: transform 0.3s ease;
+    }
+    .logo-glow:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    /* Neon Inputs */
+    .form-control, .form-control:focus {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(0, 243, 255, 0.3);
+      color: #00f3ff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-weight: 600;
+    }
+    .form-control:focus {
+      box-shadow: 0 0 12px rgba(0, 243, 255, 0.5);
+      border-color: var(--neon-blue);
+      color: #fff;
+    }
+    .form-control::placeholder {
+      color: #64748b;
+    }
+
+    /* Neon Buttons */
+    .btn-cyber-primary {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      border: none;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+    .btn-cyber-primary:hover {
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+
+    .btn-cyber-success {
+      background: linear-gradient(135deg, #00ff66, #008844);
+      border: none;
+      color: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+    }
+
+    .btn-cyber-warning {
+      background: linear-gradient(135deg, #ffee00, #ff8800);
+      border: none;
+      color: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(255, 238, 0, 0.4);
+    }
+
+    /* Form Labels & Badges */
+    .label-red { color: #ff4d4d; text-shadow: 0 0 8px rgba(255, 77, 77, 0.6); }
+    .label-yellow { color: #ffee00; text-shadow: 0 0 8px rgba(255, 238, 0, 0.6); }
+    .label-green { color: #00ff66; text-shadow: 0 0 8px rgba(0, 255, 102, 0.6); }
+    .label-cyan { color: #00f3ff; text-shadow: 0 0 8px rgba(0, 243, 255, 0.6); }
+
+    /* Links */
+    a.cyber-link {
+      color: var(--neon-blue);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    a.cyber-link:hover {
+      color: #fff;
+      text-shadow: 0 0 8px var(--neon-blue);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(0, 243, 255, 0.15);
+      background: rgba(10, 14, 23, 0.9);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      color: #94a3b8;
+    }
   </style>
 </head>
-<body class="py-4">
-  <div class="container" style="max-width: 500px;">
+<body>
+
+  <div class="container py-4" style="max-width: 480px;">
     
-    <!-- HEADER LOGO -->
-    <div class="text-center mb-3">
-      <img src="https://lh3.googleusercontent.com/d/1uYqj710Az4AxauZkMy4d8QzaE-xP9MPs" class="logo-img mb-2" alt="Logo KKM">
-      <h3 class="fw-bold m-0">Unit Kecemasan & Trauma</h3>
-      <p class="text-muted small">Sistem Laporan Penyeliaan Pesakit</p>
+    <!-- HEADER LOGO & TITLE -->
+    <div class="text-center mb-4">
+      <img src="https://lh3.googleusercontent.com/d/1uYqj710Az4AxauZkMy4d8QzaE-xP9MPs" class="logo-glow mb-2" alt="Logo KKM">
+      <h3 class="fw-bold brand-title text-white m-0" style="text-shadow: 0 0 10px var(--neon-blue);">UNIT KECEMASAN & TRAUMA</h3>
+      <p class="small text-uppercase fw-bold mt-1" style="color: var(--neon-purple); letter-spacing: 2px;">Sistem Laporan Penyeliaan Digital</p>
     </div>
 
-    <div id="alertBox" class="alert d-none" role="alert"></div>
+    <!-- ALERT BOX -->
+    <div id="alertBox" class="alert d-none cyber-card text-center fw-bold" role="alert"></div>
 
-    <!-- LOG IN FORM -->
-    <div id="loginSection" class="card p-4">
-      <h4 class="mb-3 text-center">Log Masuk Penyelia</h4>
-      <div class="mb-2">
-        <label class="form-label small fw-bold">Username</label>
+    <!-- 1. LOG IN FORM -->
+    <div id="loginSection" class="cyber-card p-4">
+      <h4 class="mb-4 text-center text-uppercase fw-bold" style="color: var(--neon-blue);">
+        <i class="fa-solid fa-user-shield me-2"></i>Log Masuk
+      </h4>
+      <div class="mb-3">
+        <label class="form-label small fw-bold text-uppercase" style="color: #94a3b8;">Username</label>
         <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label small fw-bold">Kata Laluan</label>
-        <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan Kata Laluan" required>
+      <div class="mb-4">
+        <label class="form-label small fw-bold text-uppercase" style="color: #94a3b8;">Kata Laluan</label>
+        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
       </div>
-      <button class="btn btn-primary w-100 fw-bold" onclick="handleApi('login')">Log Masuk</button>
-      <div class="d-flex justify-content-between mt-3 small">
-        <a href="#" onclick="showSection('registerSection')">Daftar Akaun Baru</a>
-        <a href="#" onclick="showSection('forgotSection')">Lupa Kata Laluan?</a>
+      <button class="btn btn-cyber-primary w-100 py-2 text-uppercase" onclick="handleApi('login')">
+        Akses Sistem <i class="fa-solid fa-arrow-right-to-bracket ms-2"></i>
+      </button>
+      <div class="d-flex justify-content-between mt-3 small fw-bold">
+        <a href="#" class="cyber-link" onclick="showSection('registerSection')"><i class="fa-solid fa-user-plus me-1"></i> Daftar Akaun</a>
+        <a href="#" class="cyber-link" onclick="showSection('forgotSection')"><i class="fa-solid fa-key me-1"></i> Lupa Pass?</a>
       </div>
     </div>
 
-    <!-- REGISTER FORM -->
-    <div id="registerSection" class="card p-4 d-none">
-      <h4 class="mb-3 text-center">Pendaftaran Penyelia</h4>
-      <input type="text" id="regUsername" class="form-control mb-2" placeholder="Username" required>
-      <input type="text" id="regNama" class="form-control mb-2" placeholder="Nama Penuh" required>
-      <input type="email" id="regEmail" class="form-control mb-2" placeholder="E-mel MOH" required>
-      <input type="password" id="regPassword" class="form-control mb-3" placeholder="Kata Laluan" required>
-      <button class="btn btn-success w-100 mb-2 fw-bold" onclick="handleApi('register')">Daftar</button>
-      <button class="btn btn-link w-100 text-secondary" onclick="showSection('loginSection')">Batal</button>
+    <!-- 2. REGISTER FORM -->
+    <div id="registerSection" class="cyber-card p-4 d-none">
+      <h4 class="mb-3 text-center text-uppercase fw-bold" style="color: var(--neon-green);">
+        <i class="fa-solid fa-user-plus me-2"></i>Pendaftaran
+      </h4>
+      <input type="text" id="regUsername" class="form-control mb-2" placeholder="Username Kebenaran" required>
+      <input type="text" id="regNama" class="form-control mb-2" placeholder="Nama Penuh Penyelia" required>
+      <input type="email" id="regEmail" class="form-control mb-2" placeholder="E-mel MOH (@moh.gov.my)" required>
+      <input type="password" id="regPassword" class="form-control mb-3" placeholder="Kata Laluan Kebenaran" required>
+      <button class="btn btn-cyber-success w-100 mb-2 py-2" onclick="handleApi('register')">Daftar Penyelia Baharu</button>
+      <button class="btn btn-link w-100 text-secondary text-decoration-none small" onclick="showSection('loginSection')">← Kembali ke Log Masuk</button>
     </div>
 
-    <!-- FORGOT PASSWORD -->
-    <div id="forgotSection" class="card p-4 d-none">
-      <h4 class="mb-3 text-center">Dapatkan Kata Laluan</h4>
+    <!-- 3. FORGOT PASSWORD -->
+    <div id="forgotSection" class="cyber-card p-4 d-none">
+      <h4 class="mb-3 text-center text-uppercase fw-bold" style="color: var(--neon-yellow);">
+        <i class="fa-solid fa-unlock-keyhole me-2"></i>Pemulihan Pass
+      </h4>
+      <p class="small text-muted text-center mb-3">Kata laluan akan dihantar ke e-mel berdaftar anda.</p>
       <input type="email" id="forgotEmail" class="form-control mb-3" placeholder="E-mel Berdaftar" required>
-      <button class="btn btn-warning w-100 mb-2 fw-bold" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
-      <button class="btn btn-link w-100 text-secondary" onclick="showSection('loginSection')">Batal</button>
+      <button class="btn btn-cyber-warning w-100 mb-2 py-2" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
+      <button class="btn btn-link w-100 text-secondary text-decoration-none small" onclick="showSection('loginSection')">← Batal</button>
     </div>
 
-    <!-- REPORT FORM -->
-    <div id="reportSection" class="card d-none">
-      <div class="p-3 bg-custom d-flex justify-content-between align-items-center rounded-top">
+    <!-- 4. REPORT FORM (AFTER LOGIN) -->
+    <div id="reportSection" class="cyber-card d-none overflow-hidden">
+      <div class="p-3 d-flex justify-content-between align-items-center" style="background: rgba(0, 243, 255, 0.1); border-bottom: 1px solid rgba(0, 243, 255, 0.2);">
         <div>
-          <h6 class="m-0 fw-bold" id="userDisplayName"></h6>
-          <small id="userDisplayEmail" class="opacity-75"></small>
+          <h6 class="m-0 fw-bold label-cyan" id="userDisplayName">Penyelia</h6>
+          <small id="userDisplayEmail" class="text-muted" style="font-size: 0.75rem;"></small>
         </div>
-        <button class="btn btn-sm btn-outline-light" onclick="logout()">Log Keluar</button>
+        <button class="btn btn-sm btn-outline-danger fw-bold" onclick="logout()"><i class="fa-solid fa-power-off me-1"></i> Keluar</button>
       </div>
-      <div class="p-4">
-        <h5 class="mb-3 fw-bold">Input Bilangan Pesakit:</h5>
-        
-        <label class="fw-bold text-danger">🔴 Red Zone</label>
-        <input type="number" id="redZone" class="form-control mb-2" value="0" min="0">
-        
-        <label class="fw-bold text-warning text-dark">🟡 Yellow Zone</label>
-        <input type="number" id="yellowZone" class="form-control mb-2" value="0" min="0">
-        
-        <label class="fw-bold text-success">🟢 Green Zone</label>
-        <input type="number" id="greenZone" class="form-control mb-2" value="0" min="0">
-        
-        <label class="fw-bold">🫁 Asthma Bay</label>
-        <input type="number" id="asthmaBay" class="form-control mb-2" value="0" min="0">
-        
-        <label class="fw-bold">🛋️ Observation Bay</label>
-        <input type="number" id="observationBay" class="form-control mb-2" value="0" min="0">
-        
-        <label class="fw-bold">⏳ Awaiting Admission</label>
-        <input type="number" id="awaitingAdmission" class="form-control mb-3" value="0" min="0">
-        
-        <!-- INPUT MASALAH / ISU -->
-        <label class="fw-bold text-dark">⚠️ Masalah / Isu Berbangkit (Jika Ada):</label>
-        <textarea id="inputMasalah" class="form-control mb-3" rows="3" placeholder="Masukkan sebarang isu/masalah semasa penyeliaan..."></textarea>
 
-        <button id="btnSubmit" class="btn btn-primary w-100 py-2 fw-bold" onclick="handleApi('submitReport')">🚀 Jana PDF & Hantar E-mel</button>
+      <div class="p-4">
+        <h5 class="mb-3 fw-bold text-uppercase border-bottom pb-2" style="color: var(--neon-blue); border-color: rgba(0, 243, 255, 0.2) !important;">
+          <i class="fa-solid fa-chart-pie me-2"></i>Status Pesakit Terkini
+        </h5>
+        
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <label class="fw-bold label-red small">🔴 Red Zone</label>
+            <input type="number" id="redZone" class="form-control mt-1" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold label-yellow small">🟡 Yellow Zone</label>
+            <input type="number" id="yellowZone" class="form-control mt-1" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold label-green small">🟢 Green Zone</label>
+            <input type="number" id="greenZone" class="form-control mt-1" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold label-cyan small">🫁 Asthma Bay</label>
+            <input type="number" id="asthmaBay" class="form-control mt-1" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold text-light small">🛋️ Obs Bay</label>
+            <input type="number" id="observationBay" class="form-control mt-1" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold text-warning small">⏳ Awaiting Adm.</label>
+            <input type="number" id="awaitingAdmission" class="form-control mt-1" value="0" min="0">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="fw-bold text-light small mb-1"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Masalah / Isu Berbangkit (Jika Ada):</label>
+          <textarea id="inputMasalah" class="form-control" rows="3" placeholder="Sila taip rincian isu/masalah di sini..."></textarea>
+        </div>
+
+        <button id="btnSubmit" class="btn btn-cyber-primary w-100 py-3 text-uppercase mt-2" onclick="handleApi('submitReport')">
+          <i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel
+        </button>
       </div>
     </div>
 
   </div>
 
+  <!-- FUTURISTIC FOOTER WITH COPYRIGHT -->
+  <footer class="text-center py-3 mt-4">
+    <div class="container">
+      <span>© 2026 Yassin Razak | All Rights Reserved</span>
+    </div>
+  </footer>
+
   <script>
-    // MASUKKAN WEB APP URL GOOGLE APPS SCRIPT ANDA DI SINI
-    const API_URL = "https://script.google.com/macros/s/AKfycbz5xTRsSwxlHAMTW2RsB_ezAH1fL6pV_kjIe8qDpUqlcDJWKRAiJ62HjdUzGFXPAksB2A/exec";
+    // MASUKKAN GOOGLE APPS SCRIPT WEB APP URL ANDA DI SINI
+    const API_URL = "MASUKKAN_WEB_APP_URL_GAS_ANDA_DI_SINI";
     let currentUser = null;
 
     function showAlert(msg, type) {
       const box = document.getElementById('alertBox');
-      box.className = `alert alert-${type}`;
+      box.className = `alert alert-${type === 'success' ? 'info' : 'danger'} cyber-card text-center fw-bold`;
       box.innerText = msg;
       box.classList.remove('d-none');
     }
@@ -134,7 +302,7 @@
         payload.email = document.getElementById('forgotEmail').value.trim();
       } else if (action === 'submitReport') {
         document.getElementById('btnSubmit').disabled = true;
-        document.getElementById('btnSubmit').innerText = 'Menjana PDF & Hantar...';
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Menjana PDF & Hantar...';
         payload.currentUser = currentUser;
         payload.data = {
           redZone: document.getElementById('redZone').value || 0,
@@ -156,7 +324,7 @@
 
         if (action === 'submitReport') {
           document.getElementById('btnSubmit').disabled = false;
-          document.getElementById('btnSubmit').innerText = '🚀 Jana PDF & Hantar E-mel';
+          document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
         }
 
         if (data.success) {
@@ -173,7 +341,7 @@
           showAlert(data.message, 'danger');
         }
       } catch (err) {
-        showAlert('Ralat Rangkaian / API: ' + err.message, 'danger');
+        showAlert('Ralat API: ' + err.message, 'danger');
       }
     }
 
