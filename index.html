@@ -271,7 +271,7 @@
 
   <script>
     // MASUKKAN GOOGLE APPS SCRIPT WEB APP URL ANDA DI SINI
-    const API_URL = "MASUKKAN_WEB_APP_URL_GAS_ANDA_DI_SINI";
+    const API_URL = "https://script.google.com/macros/s/AKfycbx21hpI88izcRUUIaq77sVTSQoTmG3riExl8azhaYf2jk0p3qyc2KSSDe5uNbv3SX8XPg/exec";
     let currentUser = null;
 
     function showAlert(msg, type) {
@@ -316,11 +316,23 @@
       }
 
       try {
+        // Menggunakan header text/plain mengelakkan masalah Pre-flight CORS & HTML Redirect Ralat
         const res = await fetch(API_URL, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
           body: JSON.stringify(payload)
         });
-        const data = await res.json();
+
+        const responseText = await res.text();
+        
+        // Pengesahan jika Google Apps Script membalas dengan HTML Ralat (Bukan JSON)
+        if (responseText.trim().startsWith("<")) {
+          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak semula tetapan deployment 'Anyone' pada Apps Script & bina New Version.");
+        }
+
+        const data = JSON.parse(responseText);
 
         if (action === 'submitReport') {
           document.getElementById('btnSubmit').disabled = false;
@@ -342,6 +354,10 @@
         }
       } catch (err) {
         showAlert('Ralat API: ' + err.message, 'danger');
+        if (action === 'submitReport') {
+          document.getElementById('btnSubmit').disabled = false;
+          document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+        }
       }
     }
 
