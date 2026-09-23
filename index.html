@@ -39,7 +39,6 @@
       letter-spacing: 1px;
     }
 
-    /* Glassmorphism Card */
     .cyber-card {
       background: var(--card-bg);
       backdrop-filter: blur(16px);
@@ -55,7 +54,6 @@
       box-shadow: 0 0 30px rgba(0, 243, 255, 0.25), inset 0 0 20px rgba(0, 243, 255, 0.1);
     }
 
-    /* Logo Glow */
     .logo-glow {
       width: 95px;
       height: auto;
@@ -66,7 +64,6 @@
       transform: scale(1.05) rotate(2deg);
     }
 
-    /* Neon Inputs */
     .form-control, .form-control:focus {
       background: rgba(15, 23, 42, 0.8);
       border: 1px solid rgba(0, 243, 255, 0.3);
@@ -84,7 +81,6 @@
       color: #64748b;
     }
 
-    /* Neon Buttons */
     .btn-cyber-primary {
       background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
       border: none;
@@ -119,13 +115,11 @@
       box-shadow: 0 0 15px rgba(255, 238, 0, 0.4);
     }
 
-    /* Form Labels & Badges */
     .label-red { color: #ff4d4d; text-shadow: 0 0 8px rgba(255, 77, 77, 0.6); }
     .label-yellow { color: #ffee00; text-shadow: 0 0 8px rgba(255, 238, 0, 0.6); }
     .label-green { color: #00ff66; text-shadow: 0 0 8px rgba(0, 255, 102, 0.6); }
     .label-cyan { color: #00f3ff; text-shadow: 0 0 8px rgba(0, 243, 255, 0.6); }
 
-    /* Links */
     a.cyber-link {
       color: var(--neon-blue);
       text-decoration: none;
@@ -136,7 +130,6 @@
       text-shadow: 0 0 8px var(--neon-blue);
     }
 
-    /* Footer */
     footer {
       border-top: 1px solid rgba(0, 243, 255, 0.15);
       background: rgba(10, 14, 23, 0.9);
@@ -249,9 +242,16 @@
           </div>
         </div>
 
+        <!-- INPUT MASALAH / ISU -->
         <div class="mb-3">
-          <label class="fw-bold text-light small mb-1"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Masalah / Isu Berbangkit (Jika Ada):</label>
-          <textarea id="inputMasalah" class="form-control" rows="3" placeholder="Sila taip rincian isu/masalah di sini..."></textarea>
+          <label class="fw-bold text-light small mb-1"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Catatan / Isu / Masalah Berbangkit:</label>
+          <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Sila taip rincian isu/masalah di sini..."></textarea>
+        </div>
+
+        <!-- INPUT TINDAKAN (JIFA PERLU) -->
+        <div class="mb-3">
+          <label class="fw-bold text-light small mb-1"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan (Jika Perlu):</label>
+          <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Sila taip tindakan susulan yang diambil..."></textarea>
         </div>
 
         <button id="btnSubmit" class="btn btn-cyber-primary w-100 py-3 text-uppercase mt-2" onclick="handleApi('submitReport')">
@@ -262,7 +262,7 @@
 
   </div>
 
-  <!-- FUTURISTIC FOOTER WITH COPYRIGHT -->
+  <!-- FOOTER -->
   <footer class="text-center py-3 mt-4">
     <div class="container">
       <span>© 2026 Yassin Razak | All Rights Reserved</span>
@@ -311,12 +311,12 @@
           asthmaBay: document.getElementById('asthmaBay').value || 0,
           observationBay: document.getElementById('observationBay').value || 0,
           awaitingAdmission: document.getElementById('awaitingAdmission').value || 0,
-          masalah: document.getElementById('inputMasalah').value.trim()
+          masalah: document.getElementById('inputMasalah').value.trim(),
+          tindakan: document.getElementById('inputTindakan').value.trim()
         };
       }
 
       try {
-        // Menggunakan header text/plain mengelakkan masalah Pre-flight CORS & HTML Redirect Ralat
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: {
@@ -327,9 +327,8 @@
 
         const responseText = await res.text();
         
-        // Pengesahan jika Google Apps Script membalas dengan HTML Ralat (Bukan JSON)
         if (responseText.trim().startsWith("<")) {
-          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak semula tetapan deployment 'Anyone' pada Apps Script & bina New Version.");
+          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak semula deployment 'Anyone' pada Apps Script & bina New Version.");
         }
 
         const data = JSON.parse(responseText);
