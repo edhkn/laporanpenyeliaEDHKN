@@ -9,23 +9,33 @@
     body { background-color: #f8f9fa; font-family: sans-serif; }
     .card { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none; }
     .bg-custom { background-color: #003366; color: white; }
+    .logo-img { width: 85px; height: auto; }
   </style>
 </head>
 <body class="py-4">
   <div class="container" style="max-width: 500px;">
-    <div class="text-center mb-4">
-      <h3 class="fw-bold">Unit Kecemasan & Trauma</h3>
-      <p class="text-muted">Sistem Laporan Penyeliaan Pesakit</p>
+    
+    <!-- HEADER LOGO -->
+    <div class="text-center mb-3">
+      <img src="https://lh3.googleusercontent.com/d/1uYqj710Az4AxauZkMy4d8QzaE-xP9MPs" class="logo-img mb-2" alt="Logo KKM">
+      <h3 class="fw-bold m-0">Unit Kecemasan & Trauma</h3>
+      <p class="text-muted small">Sistem Laporan Penyeliaan Pesakit</p>
     </div>
 
     <div id="alertBox" class="alert d-none" role="alert"></div>
 
-    <!-- LOGIN FORM -->
+    <!-- LOG IN FORM -->
     <div id="loginSection" class="card p-4">
       <h4 class="mb-3 text-center">Log Masuk Penyelia</h4>
-      <input type="email" id="loginEmail" class="form-control mb-2" placeholder="E-mel MOH" required>
-      <input type="password" id="loginPassword" class="form-control mb-3" placeholder="Kata Laluan" required>
-      <button class="btn btn-primary w-100" onclick="handleApi('login')">Log Masuk</button>
+      <div class="mb-2">
+        <label class="form-label small fw-bold">Username</label>
+        <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Kata Laluan</label>
+        <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan Kata Laluan" required>
+      </div>
+      <button class="btn btn-primary w-100 fw-bold" onclick="handleApi('login')">Log Masuk</button>
       <div class="d-flex justify-content-between mt-3 small">
         <a href="#" onclick="showSection('registerSection')">Daftar Akaun Baru</a>
         <a href="#" onclick="showSection('forgotSection')">Lupa Kata Laluan?</a>
@@ -35,10 +45,11 @@
     <!-- REGISTER FORM -->
     <div id="registerSection" class="card p-4 d-none">
       <h4 class="mb-3 text-center">Pendaftaran Penyelia</h4>
+      <input type="text" id="regUsername" class="form-control mb-2" placeholder="Username" required>
       <input type="text" id="regNama" class="form-control mb-2" placeholder="Nama Penuh" required>
-      <input type="email" id="regEmail" class="form-control mb-2" placeholder="E-mel" required>
+      <input type="email" id="regEmail" class="form-control mb-2" placeholder="E-mel MOH" required>
       <input type="password" id="regPassword" class="form-control mb-3" placeholder="Kata Laluan" required>
-      <button class="btn btn-success w-100 mb-2" onclick="handleApi('register')">Daftar</button>
+      <button class="btn btn-success w-100 mb-2 fw-bold" onclick="handleApi('register')">Daftar</button>
       <button class="btn btn-link w-100 text-secondary" onclick="showSection('loginSection')">Batal</button>
     </div>
 
@@ -46,7 +57,7 @@
     <div id="forgotSection" class="card p-4 d-none">
       <h4 class="mb-3 text-center">Dapatkan Kata Laluan</h4>
       <input type="email" id="forgotEmail" class="form-control mb-3" placeholder="E-mel Berdaftar" required>
-      <button class="btn btn-warning w-100 mb-2" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
+      <button class="btn btn-warning w-100 mb-2 fw-bold" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
       <button class="btn btn-link w-100 text-secondary" onclick="showSection('loginSection')">Batal</button>
     </div>
 
@@ -61,19 +72,37 @@
       </div>
       <div class="p-4">
         <h5 class="mb-3 fw-bold">Input Bilangan Pesakit:</h5>
-        <label class="fw-bold text-danger">🔴 Red Zone</label><input type="number" id="redZone" class="form-control mb-2" value="0">
-        <label class="fw-bold text-warning">🟡 Yellow Zone</label><input type="number" id="yellowZone" class="form-control mb-2" value="0">
-        <label class="fw-bold text-success">🟢 Green Zone</label><input type="number" id="greenZone" class="form-control mb-2" value="0">
-        <label class="fw-bold">🫁 Asthma Bay</label><input type="number" id="asthmaBay" class="form-control mb-2" value="0">
-        <label class="fw-bold">🛋️ Observation Bay</label><input type="number" id="observationBay" class="form-control mb-2" value="0">
-        <label class="fw-bold">⏳ Awaiting Admission</label><input type="number" id="awaitingAdmission" class="form-control mb-3" value="0">
+        
+        <label class="fw-bold text-danger">🔴 Red Zone</label>
+        <input type="number" id="redZone" class="form-control mb-2" value="0" min="0">
+        
+        <label class="fw-bold text-warning text-dark">🟡 Yellow Zone</label>
+        <input type="number" id="yellowZone" class="form-control mb-2" value="0" min="0">
+        
+        <label class="fw-bold text-success">🟢 Green Zone</label>
+        <input type="number" id="greenZone" class="form-control mb-2" value="0" min="0">
+        
+        <label class="fw-bold">🫁 Asthma Bay</label>
+        <input type="number" id="asthmaBay" class="form-control mb-2" value="0" min="0">
+        
+        <label class="fw-bold">🛋️ Observation Bay</label>
+        <input type="number" id="observationBay" class="form-control mb-2" value="0" min="0">
+        
+        <label class="fw-bold">⏳ Awaiting Admission</label>
+        <input type="number" id="awaitingAdmission" class="form-control mb-3" value="0" min="0">
+        
+        <!-- INPUT MASALAH / ISU -->
+        <label class="fw-bold text-dark">⚠️ Masalah / Isu Berbangkit (Jika Ada):</label>
+        <textarea id="inputMasalah" class="form-control mb-3" rows="3" placeholder="Masukkan sebarang isu/masalah semasa penyeliaan..."></textarea>
+
         <button id="btnSubmit" class="btn btn-primary w-100 py-2 fw-bold" onclick="handleApi('submitReport')">🚀 Jana PDF & Hantar E-mel</button>
       </div>
     </div>
+
   </div>
 
   <script>
-    // MASUKKAN URL GOOGLE APPS SCRIPT WEB APP ANDA DI SINI
+    // MASUKKAN WEB APP URL GOOGLE APPS SCRIPT ANDA DI SINI
     const API_URL = "https://script.google.com/macros/s/AKfycbz5xTRsSwxlHAMTW2RsB_ezAH1fL6pV_kjIe8qDpUqlcDJWKRAiJ62HjdUzGFXPAksB2A/exec";
     let currentUser = null;
 
@@ -94,14 +123,15 @@
       let payload = { action };
 
       if (action === 'login') {
-        payload.email = document.getElementById('loginEmail').value;
-        payload.password = document.getElementById('loginPassword').value;
+        payload.username = document.getElementById('loginUsername').value.trim();
+        payload.password = document.getElementById('loginPassword').value.trim();
       } else if (action === 'register') {
-        payload.nama = document.getElementById('regNama').value;
-        payload.email = document.getElementById('regEmail').value;
-        payload.password = document.getElementById('regPassword').value;
+        payload.username = document.getElementById('regUsername').value.trim();
+        payload.nama = document.getElementById('regNama').value.trim();
+        payload.email = document.getElementById('regEmail').value.trim();
+        payload.password = document.getElementById('regPassword').value.trim();
       } else if (action === 'retrieve') {
-        payload.email = document.getElementById('forgotEmail').value;
+        payload.email = document.getElementById('forgotEmail').value.trim();
       } else if (action === 'submitReport') {
         document.getElementById('btnSubmit').disabled = true;
         document.getElementById('btnSubmit').innerText = 'Menjana PDF & Hantar...';
@@ -112,7 +142,8 @@
           greenZone: document.getElementById('greenZone').value || 0,
           asthmaBay: document.getElementById('asthmaBay').value || 0,
           observationBay: document.getElementById('observationBay').value || 0,
-          awaitingAdmission: document.getElementById('awaitingAdmission').value || 0
+          awaitingAdmission: document.getElementById('awaitingAdmission').value || 0,
+          masalah: document.getElementById('inputMasalah').value.trim()
         };
       }
 
