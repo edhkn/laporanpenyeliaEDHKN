@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Laporan Penyeliaan Kecemasan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; font-family: sans-serif; }
+    .card { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none; }
+    .bg-custom { background-color: #003366; color: white; }
+  </style>
+</head>
+<body class="py-4">
+  <div class="container" style="max-width: 500px;">
+    <div class="text-center mb-4">
+      <h3 class="fw-bold">Unit Kecemasan & Trauma</h3>
+      <p class="text-muted">Sistem Laporan Penyeliaan Pesakit</p>
+    </div>
+
+    <div id="alertBox" class="alert d-none" role="alert"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginSection" class="card p-4">
+      <h4 class="mb-3 text-center">Log Masuk Penyelia</h4>
+      <input type="email" id="loginEmail" class="form-control mb-2" placeholder="E-mel MOH" required>
+      <input type="password" id="loginPassword" class="form-control mb-3" placeholder="Kata Laluan" required>
+      <button class="btn btn-primary w-100" onclick="handleApi('login')">Log Masuk</button>
+      <div class="d-flex justify-content-between mt-3 small">
+        <a href="#" onclick="showSection('registerSection')">Daftar Akaun Baru</a>
+        <a href="#" onclick="showSection('forgotSection')">Lupa Kata Laluan?</a>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerSection" class="card p-4 d-none">
+      <h4 class="mb-3 text-center">Pendaftaran Penyelia</h4>
+      <input type="text" id="regNama" class="form-control mb-2" placeholder="Nama Penuh" required>
+      <input type="email" id="regEmail" class="form-control mb-2" placeholder="E-mel" required>
+      <input type="password" id="regPassword" class="form-control mb-3" placeholder="Kata Laluan" required>
+      <button class="btn btn-success w-100 mb-2" onclick="handleApi('register')">Daftar</button>
+      <button class="btn btn-link w-100 text-secondary" onclick="showSection('loginSection')">Batal</button>
+    </div>
+
+    <!-- FORGOT PASSWORD -->
+    <div id="forgotSection" class="card p-4 d-none">
+      <h4 class="mb-3 text-center">Dapatkan Kata Laluan</h4>
+      <input type="email" id="forgotEmail" class="form-control mb-3" placeholder="E-mel Berdaftar" required>
+      <button class="btn btn-warning w-100 mb-2" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
+      <button class="btn btn-link w-100 text-secondary" onclick="showSection('loginSection')">Batal</button>
+    </div>
+
+    <!-- REPORT FORM -->
+    <div id="reportSection" class="card d-none">
+      <div class="p-3 bg-custom d-flex justify-content-between align-items-center rounded-top">
+        <div>
+          <h6 class="m-0 fw-bold" id="userDisplayName"></h6>
+          <small id="userDisplayEmail" class="opacity-75"></small>
+        </div>
+        <button class="btn btn-sm btn-outline-light" onclick="logout()">Log Keluar</button>
+      </div>
+      <div class="p-4">
+        <h5 class="mb-3 fw-bold">Input Bilangan Pesakit:</h5>
+        <label class="fw-bold text-danger">🔴 Red Zone</label><input type="number" id="redZone" class="form-control mb-2" value="0">
+        <label class="fw-bold text-warning">🟡 Yellow Zone</label><input type="number" id="yellowZone" class="form-control mb-2" value="0">
+        <label class="fw-bold text-success">🟢 Green Zone</label><input type="number" id="greenZone" class="form-control mb-2" value="0">
+        <label class="fw-bold">🫁 Asthma Bay</label><input type="number" id="asthmaBay" class="form-control mb-2" value="0">
+        <label class="fw-bold">🛋️ Observation Bay</label><input type="number" id="observationBay" class="form-control mb-2" value="0">
+        <label class="fw-bold">⏳ Awaiting Admission</label><input type="number" id="awaitingAdmission" class="form-control mb-3" value="0">
+        <button id="btnSubmit" class="btn btn-primary w-100 py-2 fw-bold" onclick="handleApi('submitReport')">🚀 Jana PDF & Hantar E-mel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // MASUKKAN URL GOOGLE APPS SCRIPT WEB APP ANDA DI SINI
+    const API_URL = "https://script.google.com/macros/s/AKfycbz5xTRsSwxlHAMTW2RsB_ezAH1fL6pV_kjIe8qDpUqlcDJWKRAiJ62HjdUzGFXPAksB2A/exec";
+    let currentUser = null;
+
+    function showAlert(msg, type) {
+      const box = document.getElementById('alertBox');
+      box.className = `alert alert-${type}`;
+      box.innerText = msg;
+      box.classList.remove('d-none');
+    }
+
+    function showSection(id) {
+      document.getElementById('alertBox').classList.add('d-none');
+      ['loginSection', 'registerSection', 'forgotSection', 'reportSection'].forEach(s => document.getElementById(s).classList.add('d-none'));
+      document.getElementById(id).classList.remove('d-none');
+    }
+
+    async function handleApi(action) {
+      let payload = { action };
+
+      if (action === 'login') {
+        payload.email = document.getElementById('loginEmail').value;
+        payload.password = document.getElementById('loginPassword').value;
+      } else if (action === 'register') {
+        payload.nama = document.getElementById('regNama').value;
+        payload.email = document.getElementById('regEmail').value;
+        payload.password = document.getElementById('regPassword').value;
+      } else if (action === 'retrieve') {
+        payload.email = document.getElementById('forgotEmail').value;
+      } else if (action === 'submitReport') {
+        document.getElementById('btnSubmit').disabled = true;
+        document.getElementById('btnSubmit').innerText = 'Menjana PDF & Hantar...';
+        payload.currentUser = currentUser;
+        payload.data = {
+          redZone: document.getElementById('redZone').value || 0,
+          yellowZone: document.getElementById('yellowZone').value || 0,
+          greenZone: document.getElementById('greenZone').value || 0,
+          asthmaBay: document.getElementById('asthmaBay').value || 0,
+          observationBay: document.getElementById('observationBay').value || 0,
+          awaitingAdmission: document.getElementById('awaitingAdmission').value || 0
+        };
+      }
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (action === 'submitReport') {
+          document.getElementById('btnSubmit').disabled = false;
+          document.getElementById('btnSubmit').innerText = '🚀 Jana PDF & Hantar E-mel';
+        }
+
+        if (data.success) {
+          showAlert(data.message, 'success');
+          if (action === 'login') {
+            currentUser = data.user;
+            document.getElementById('userDisplayName').innerText = currentUser.nama;
+            document.getElementById('userDisplayEmail').innerText = currentUser.email;
+            showSection('reportSection');
+          } else if (action === 'register' || action === 'retrieve') {
+            showSection('loginSection');
+          }
+        } else {
+          showAlert(data.message, 'danger');
+        }
+      } catch (err) {
+        showAlert('Ralat Rangkaian / API: ' + err.message, 'danger');
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      showSection('loginSection');
+    }
+  </script>
+</body>
+</html>
