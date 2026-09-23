@@ -12,12 +12,12 @@
 
   <style>
     :root {
-      --primary-color: #0f172a;    /* Deep Navy */
-      --accent-blue: #0284c7;     /* Professional Blue */
+      --primary-color: #0f172a;
+      --accent-blue: #0284c7;
       --accent-hover: #0369a1;
       --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --border-color: #cbd5e1;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
     }
 
     body {
@@ -30,232 +30,197 @@
       justify-content: space-between;
     }
 
-    /* Modern Card Container */
     .modern-card {
       background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 16px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
-    /* Logo Image */
     .logo-img {
-      width: 90px;
+      width: 70px;
       height: auto;
-      transition: transform 0.2s ease;
-    }
-    .logo-img:hover {
-      transform: scale(1.03);
     }
 
-    /* Input Fields */
     .form-control {
       background-color: #f8fafc;
       border: 1px solid var(--border-color);
       color: #0f172a;
-      border-radius: 8px;
-      padding: 10px 14px;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.88rem;
       font-weight: 500;
-      transition: all 0.2s ease;
     }
     .form-control:focus {
       background-color: #ffffff;
       border-color: var(--accent-blue);
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-      color: #0f172a;
-    }
-    .form-control::placeholder {
-      color: #94a3b8;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
     }
 
-    /* Modern Buttons */
     .btn-modern-primary {
       background-color: var(--accent-blue);
       border: none;
       color: #ffffff;
       font-weight: 600;
-      border-radius: 8px;
-      padding: 12px;
-      transition: all 0.2s ease;
+      border-radius: 6px;
+      padding: 9px;
+      font-size: 0.9rem;
     }
     .btn-modern-primary:hover {
       background-color: var(--accent-hover);
       color: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
     }
 
-    .btn-modern-dark {
-      background-color: var(--primary-color);
-      border: none;
-      color: #ffffff;
-      font-weight: 600;
-      border-radius: 8px;
-    }
-    .btn-modern-dark:hover {
-      background-color: #1e293b;
-      color: #ffffff;
-    }
-
-    /* Badge & Label Styling */
     .label-red { color: #dc2626; }
     .label-yellow { color: #d97706; }
     .label-green { color: #16a34a; }
     .label-blue { color: #0284c7; }
 
-    /* Links */
     a.modern-link {
       color: var(--accent-blue);
       text-decoration: none;
       font-weight: 600;
     }
-    a.modern-link:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
-    }
 
-    /* Footer */
     footer {
       border-top: 1px solid var(--border-color);
       background: #ffffff;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: #64748b;
-      font-weight: 500;
     }
   </style>
 </head>
 <body>
 
-  <div class="container py-4" style="max-width: 480px;">
+  <div class="container py-2 px-3" style="max-width: 420px;">
     
     <!-- HEADER LOGO & TITLE -->
-    <div class="text-center mb-4">
-      <img src="https://lh3.googleusercontent.com/d/1uYqj710Az4AxauZkMy4d8QzaE-xP9MPs" class="logo-img mb-2" alt="Logo KKM">
-      <h3 class="fw-extrabold text-dark m-0" style="letter-spacing: -0.5px;">Unit Kecemasan & Trauma</h3>
-      <p class="text-muted small fw-semibold mt-1">Sistem Laporan Penyeliaan Digital</p>
+    <div class="text-center mb-2">
+      <img src="https://lh3.googleusercontent.com/d/1uYqj710Az4AxauZkMy4d8QzaE-xP9MPs" class="logo-img mb-1" alt="Logo KKM">
+      <h5 class="fw-extrabold text-dark m-0" style="letter-spacing: -0.3px;">Unit Kecemasan & Trauma</h5>
+      <p class="text-muted small fw-semibold m-0" style="font-size: 0.75rem;">Sistem Laporan Penyeliaan Digital</p>
     </div>
 
     <!-- ALERT BOX -->
-    <div id="alertBox" class="alert d-none modern-card text-center fw-bold small" role="alert"></div>
+    <div id="alertBox" class="alert d-none modern-card text-center fw-bold py-2 px-3 mb-2 small" role="alert"></div>
 
     <!-- 1. LOG IN FORM -->
-    <div id="loginSection" class="modern-card p-4">
-      <h5 class="mb-4 text-center fw-bold text-dark">
-        <i class="fa-solid fa-user-check me-2 text-primary"></i>Log Masuk Penyelia
-      </h5>
-      <div class="mb-3">
-        <label class="form-label small fw-bold text-secondary">USERNAME</label>
+    <div id="loginSection" class="modern-card p-3">
+      <h6 class="mb-3 text-center fw-bold text-dark">
+        <i class="fa-solid fa-user-check me-1 text-primary"></i>Log Masuk Penyelia
+      </h6>
+      <div class="mb-2">
+        <label class="form-label mb-1 small fw-bold text-secondary" style="font-size:0.75rem;">USERNAME</label>
         <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username" required>
       </div>
-      <div class="mb-4">
-        <label class="form-label small fw-bold text-secondary">KATA LALUAN</label>
+      <div class="mb-3">
+        <label class="form-label mb-1 small fw-bold text-secondary" style="font-size:0.75rem;">KATA LALUAN</label>
         <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
       </div>
-      <button class="btn btn-modern-primary w-100 py-2.5" onclick="handleApi('login')">
-        Log Masuk <i class="fa-solid fa-arrow-right ms-2"></i>
+      <button class="btn btn-modern-primary w-100" onclick="handleApi('login')">
+        Log Masuk <i class="fa-solid fa-arrow-right ms-1"></i>
       </button>
-      <div class="d-flex justify-content-between mt-3 small">
+      <div class="d-flex justify-content-between mt-2 pt-1 small" style="font-size:0.8rem;">
         <a href="#" class="modern-link" onclick="showSection('registerSection')">Daftar Akaun</a>
         <a href="#" class="modern-link" onclick="showSection('forgotSection')">Lupa Kata Laluan?</a>
       </div>
     </div>
 
     <!-- 2. REGISTER FORM -->
-    <div id="registerSection" class="modern-card p-4 d-none">
-      <h5 class="mb-3 text-center fw-bold text-dark">
-        <i class="fa-solid fa-user-plus me-2 text-success"></i>Pendaftaran Penyelia
-      </h5>
-      <div class="mb-2">
-        <label class="form-label small fw-bold text-secondary">USERNAME</label>
+    <div id="registerSection" class="modern-card p-3 d-none">
+      <h6 class="mb-2 text-center fw-bold text-dark">
+        <i class="fa-solid fa-user-plus me-1 text-success"></i>Pendaftaran Penyelia
+      </h6>
+      <div class="mb-1">
+        <label class="form-label mb-0 small fw-bold text-secondary" style="font-size:0.7rem;">USERNAME</label>
         <input type="text" id="regUsername" class="form-control" placeholder="Username" required>
       </div>
-      <div class="mb-2">
-        <label class="form-label small fw-bold text-secondary">NAMA PENUH</label>
-        <input type="text" id="regNama" class="form-control" placeholder="Nama Penuh Penyelia" required>
+      <div class="mb-1">
+        <label class="form-label mb-0 small fw-bold text-secondary" style="font-size:0.7rem;">NAMA PENUH</label>
+        <input type="text" id="regNama" class="form-control" placeholder="Nama Penuh" required>
       </div>
-      <div class="mb-2">
-        <label class="form-label small fw-bold text-secondary">E-MEL MOH</label>
+      <div class="mb-1">
+        <label class="form-label mb-0 small fw-bold text-secondary" style="font-size:0.7rem;">E-MEL MOH</label>
         <input type="email" id="regEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label small fw-bold text-secondary">KATA LALUAN</label>
+      <div class="mb-2">
+        <label class="form-label mb-0 small fw-bold text-secondary" style="font-size:0.7rem;">KATA LALUAN</label>
         <input type="password" id="regPassword" class="form-control" placeholder="Kata Laluan" required>
       </div>
-      <button class="btn btn-success w-100 mb-2 py-2 fw-semibold" style="border-radius:8px;" onclick="handleApi('register')">Daftar Pengguna</button>
-      <button class="btn btn-link w-100 text-secondary text-decoration-none small" onclick="showSection('loginSection')">← Kembali ke Log Masuk</button>
+      <button class="btn btn-success w-100 mb-1 py-1.5 fw-semibold" style="border-radius:6px; font-size:0.85rem;" onclick="handleApi('register')">Daftar Pengguna</button>
+      <button class="btn btn-link w-100 text-secondary text-decoration-none p-0" style="font-size:0.75rem;" onclick="showSection('loginSection')">← Kembali ke Log Masuk</button>
     </div>
 
     <!-- 3. FORGOT PASSWORD -->
-    <div id="forgotSection" class="modern-card p-4 d-none">
-      <h5 class="mb-2 text-center fw-bold text-dark">
-        <i class="fa-solid fa-key me-2 text-warning"></i>Dapatkan Kata Laluan
-      </h5>
-      <p class="small text-muted text-center mb-3">Kata laluan akan dihantar ke e-mel berdaftar anda.</p>
-      <div class="mb-3">
-        <label class="form-label small fw-bold text-secondary">E-MEL BERDAFTAR</label>
+    <div id="forgotSection" class="modern-card p-3 d-none">
+      <h6 class="mb-1 text-center fw-bold text-dark">
+        <i class="fa-solid fa-key me-1 text-warning"></i>Dapatkan Kata Laluan
+      </h6>
+      <p class="text-muted text-center mb-2" style="font-size:0.75rem;">Kata laluan akan dihantar ke e-mel anda.</p>
+      <div class="mb-2">
+        <label class="form-label mb-1 small fw-bold text-secondary" style="font-size:0.7rem;">E-MEL BERDAFTAR</label>
         <input type="email" id="forgotEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
       </div>
-      <button class="btn btn-warning w-100 mb-2 py-2 fw-semibold text-dark" style="border-radius:8px;" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
-      <button class="btn btn-link w-100 text-secondary text-decoration-none small" onclick="showSection('loginSection')">← Batal</button>
+      <button class="btn btn-warning w-100 mb-1 py-1.5 fw-semibold text-dark" style="border-radius:6px; font-size:0.85rem;" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
+      <button class="btn btn-link w-100 text-secondary text-decoration-none p-0" style="font-size:0.75rem;" onclick="showSection('loginSection')">← Batal</button>
     </div>
 
     <!-- 4. REPORT FORM (AFTER LOGIN) -->
     <div id="reportSection" class="modern-card d-none overflow-hidden">
-      <div class="p-3 bg-white d-flex justify-content-between align-items-center border-bottom">
+      <div class="p-2 px-3 bg-white d-flex justify-content-between align-items-center border-bottom">
         <div>
-          <h6 class="m-0 fw-bold text-dark" id="userDisplayName">Penyelia</h6>
-          <small id="userDisplayEmail" class="text-muted" style="font-size: 0.78rem;"></small>
+          <h6 class="m-0 fw-bold text-dark small" id="userDisplayName">Penyelia</h6>
+          <small id="userDisplayEmail" class="text-muted" style="font-size: 0.7rem;"></small>
         </div>
-        <button class="btn btn-sm btn-outline-danger fw-bold" style="border-radius:6px;" onclick="logout()"><i class="fa-solid fa-power-off me-1"></i> Log Keluar</button>
+        <button class="btn btn-xs btn-outline-danger fw-bold py-0 px-2" style="border-radius:4px; font-size:0.75rem;" onclick="logout()"><i class="fa-solid fa-power-off me-1"></i> Log Keluar</button>
       </div>
 
-      <div class="p-4">
-        <h6 class="mb-3 fw-bold text-dark text-uppercase border-bottom pb-2">
-          <i class="fa-solid fa-hospital-user me-2 text-primary"></i>Status Bilangan Pesakit
+      <div class="p-3">
+        <h6 class="mb-2 fw-bold text-dark text-uppercase border-bottom pb-1" style="font-size:0.8rem;">
+          <i class="fa-solid fa-hospital-user me-1 text-primary"></i>Status Bilangan Pesakit
         </h6>
         
-        <div class="row g-2 mb-3">
+        <div class="row g-2 mb-2">
           <div class="col-6">
-            <label class="fw-bold label-red small">🔴 Red Zone</label>
-            <input type="number" id="redZone" class="form-control mt-1" value="0" min="0">
+            <label class="fw-bold label-red" style="font-size:0.75rem;">🔴 Red Zone</label>
+            <input type="number" id="redZone" class="form-control" value="0" min="0">
           </div>
           <div class="col-6">
-            <label class="fw-bold label-yellow small">🟡 Yellow Zone</label>
-            <input type="number" id="yellowZone" class="form-control mt-1" value="0" min="0">
+            <label class="fw-bold label-yellow" style="font-size:0.75rem;">🟡 Yellow Zone</label>
+            <input type="number" id="yellowZone" class="form-control" value="0" min="0">
           </div>
           <div class="col-6">
-            <label class="fw-bold label-green small">🟢 Green Zone</label>
-            <input type="number" id="greenZone" class="form-control mt-1" value="0" min="0">
+            <label class="fw-bold label-green" style="font-size:0.75rem;">🟢 Green Zone</label>
+            <input type="number" id="greenZone" class="form-control" value="0" min="0">
           </div>
           <div class="col-6">
-            <label class="fw-bold label-blue small">🫁 Asthma Bay</label>
-            <input type="number" id="asthmaBay" class="form-control mt-1" value="0" min="0">
+            <label class="fw-bold label-blue" style="font-size:0.75rem;">🫁 Asthma Bay</label>
+            <input type="number" id="asthmaBay" class="form-control" value="0" min="0">
           </div>
           <div class="col-6">
-            <label class="fw-bold text-dark small">🛋️ Obs Bay</label>
-            <input type="number" id="observationBay" class="form-control mt-1" value="0" min="0">
+            <label class="fw-bold text-dark" style="font-size:0.75rem;">🛋️ Obs Bay</label>
+            <input type="number" id="observationBay" class="form-control" value="0" min="0">
           </div>
           <div class="col-6">
-            <label class="fw-bold text-secondary small">⏳ Awaiting Adm.</label>
-            <input type="number" id="awaitingAdmission" class="form-control mt-1" value="0" min="0">
+            <label class="fw-bold text-secondary" style="font-size:0.75rem;">⏳ Awaiting Adm.</label>
+            <input type="number" id="awaitingAdmission" class="form-control" value="0" min="0">
           </div>
         </div>
 
         <!-- INPUT MASALAH / ISU -->
-        <div class="mb-3">
-          <label class="fw-bold text-dark small mb-1"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Catatan / Isu / Masalah Berbangkit:</label>
+        <div class="mb-2">
+          <label class="fw-bold text-dark mb-1" style="font-size:0.75rem;"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Catatan / Isu / Masalah Berbangkit:</label>
           <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taip rincian masalah jika ada..."></textarea>
         </div>
 
-        <!-- INPUT TINDAKAN (JIFA PERLU) -->
-        <div class="mb-3">
-          <label class="fw-bold text-dark small mb-1"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan (Jika Perlu):</label>
+        <!-- INPUT TINDAKAN (JIKA PERLU) -->
+        <div class="mb-2">
+          <label class="fw-bold text-dark mb-1" style="font-size:0.75rem;"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan (Jika Perlu):</label>
           <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Taip tindakan susulan jika perlu..."></textarea>
         </div>
 
-        <button id="btnSubmit" class="btn btn-modern-primary w-100 py-3 mt-2" onclick="handleApi('submitReport')">
-          <i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel
+        <button id="btnSubmit" class="btn btn-modern-primary w-100 py-2 mt-1" onclick="handleApi('submitReport')">
+          <i class="fa-solid fa-file-pdf me-1"></i>Jana PDF & Hantar E-Mel
         </button>
       </div>
     </div>
@@ -263,20 +228,55 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="text-center py-3 mt-4">
+  <footer class="text-center py-2 mt-2">
     <div class="container">
       <span>© 2026 Yassin Razak | All Rights Reserved</span>
     </div>
   </footer>
 
   <script>
-    // MASUKKAN GOOGLE APPS SCRIPT WEB APP URL ANDA DI SINI
     const API_URL = "https://script.google.com/macros/s/AKfycbx21hpI88izcRUUIaq77sVTSQoTmG3riExl8azhaYf2jk0p3qyc2KSSDe5uNbv3SX8XPg/exec";
     let currentUser = null;
 
+    // FUNGSI MEMAINKAN BUNYI SUCCESS (WEB AUDIO SYNTHESIS - "SUBMISSION DONE")
+    function playSuccessSound() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+
+        // Nada Pertama (C5 - 523.25Hz)
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(523.25, ctx.currentTime);
+        gain1.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+
+        // Nada Kedua (G5 - 783.99Hz)
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(783.99, ctx.currentTime + 0.12);
+        gain2.gain.setValueAtTime(0.2, ctx.currentTime + 0.12);
+        gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+
+        osc1.start(ctx.currentTime);
+        osc1.stop(ctx.currentTime + 0.15);
+        osc2.start(ctx.currentTime + 0.12);
+        osc2.stop(ctx.currentTime + 0.4);
+      } catch (e) {
+        console.log("Audio playback error:", e);
+      }
+    }
+
     function showAlert(msg, type) {
       const box = document.getElementById('alertBox');
-      box.className = `alert alert-${type === 'success' ? 'success' : 'danger'} modern-card text-center fw-bold`;
+      box.className = `alert alert-${type === 'success' ? 'success' : 'danger'} modern-card text-center fw-bold py-2 px-3 mb-2 small`;
       box.innerText = msg;
       box.classList.remove('d-none');
     }
@@ -302,7 +302,7 @@
         payload.email = document.getElementById('forgotEmail').value.trim();
       } else if (action === 'submitReport') {
         document.getElementById('btnSubmit').disabled = true;
-        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Menjana PDF & Hantar...';
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Menjana PDF...';
         payload.currentUser = currentUser;
         payload.data = {
           redZone: document.getElementById('redZone').value || 0,
@@ -328,18 +328,21 @@
         const responseText = await res.text();
         
         if (responseText.trim().startsWith("<")) {
-          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak semula deployment 'Anyone' pada Apps Script & bina New Version.");
+          throw new Error("Backend mengembalikan HTML. Semak deployment 'Anyone' & bina New Version pada GAS.");
         }
 
         const data = JSON.parse(responseText);
 
         if (action === 'submitReport') {
           document.getElementById('btnSubmit').disabled = false;
-          document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+          document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-1"></i>Jana PDF & Hantar E-Mel';
         }
 
         if (data.success) {
           showAlert(data.message, 'success');
+          if (action === 'submitReport') {
+            playSuccessSound(); // PLAY SOUND SUBMISSION DONE
+          }
           if (action === 'login') {
             currentUser = data.user;
             document.getElementById('userDisplayName').innerText = currentUser.nama;
@@ -355,7 +358,7 @@
         showAlert('Ralat API: ' + err.message, 'danger');
         if (action === 'submitReport') {
           document.getElementById('btnSubmit').disabled = false;
-          document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+          document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-1"></i>Jana PDF & Hantar E-Mel';
         }
       }
     }
