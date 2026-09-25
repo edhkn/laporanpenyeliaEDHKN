@@ -4,15 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laporan Penyeliaan - Unit Kecemasan & Trauma</title>
-  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts & Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --primary-dark: #0f172a;    /* Deep Executive Navy */
+      --primary-dark: #0f172a;    
       --accent-blue: #0284c7;
       --accent-hover: #0369a1;
       --text-muted: #64748b;
@@ -31,14 +29,8 @@
       padding: 2rem 1rem;
     }
 
-    /* Responsive Wrapper - Auto adjusts for PC and Mobile */
-    .app-wrapper {
-      width: 100%;
-      max-width: 600px;
-      margin: auto;
-    }
+    .app-wrapper { width: 100%; max-width: 600px; margin: auto; }
 
-    /* Elegant Card Design */
     .elegant-card {
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.8);
@@ -49,13 +41,7 @@
       transition: all 0.3s ease;
     }
 
-    /* Header Nav */
-    .nav-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
+    .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
     
     .btn-back {
       background: #ffffff;
@@ -67,16 +53,11 @@
       font-size: 0.85rem;
       transition: all 0.2s;
     }
-    .btn-back:hover {
-      background: #f1f5f9;
-      transform: translateX(-2px);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    }
+    .btn-back:hover { background: #f1f5f9; transform: translateX(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
 
     .header-title { font-weight: 800; color: var(--primary-dark); font-size: 1.1rem; margin: 0; }
     .header-subtitle { font-weight: 600; color: var(--accent-blue); font-size: 0.75rem; text-transform: uppercase; }
 
-    /* Elegant Input Fields */
     .form-control {
       background-color: #f8fafc;
       border: 1px solid #cbd5e1;
@@ -95,7 +76,6 @@
     
     .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem; letter-spacing: 0.5px; text-transform: uppercase; }
 
-    /* Section Title */
     .section-title {
       font-weight: 800;
       font-size: 0.95rem;
@@ -107,7 +87,6 @@
       align-items: center;
     }
 
-    /* Elegant Buttons */
     .btn-elegant-primary {
       background-color: var(--primary-dark);
       color: #ffffff;
@@ -119,25 +98,16 @@
       transition: all 0.3s ease;
       margin-top: 1rem;
     }
-    .btn-elegant-primary:hover {
-      background-color: #1e293b;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 15px rgba(15, 23, 42, 0.15);
-      color: #fff;
-    }
+    .btn-elegant-primary:hover { background-color: #1e293b; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(15, 23, 42, 0.15); color: #fff; }
 
-    footer {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #94a3b8;
-      font-weight: 500;
-    }
+    /* FOOTER PROFESIONAL */
+    .pro-footer { margin-top: 2.5rem; padding: 1.2rem 0; border-top: 1px solid #e2e8f0; text-align: center; background: transparent; }
+    .pro-footer p { margin: 0; font-size: 0.8rem; color: #64748b; font-weight: 500; letter-spacing: 0.3px; }
+    .pro-footer .author { font-weight: 700; color: #0f172a; }
+    .pro-footer .divider { margin: 0 0.6rem; color: #cbd5e1; }
+    .pro-footer .rights { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1.2px; color: #94a3b8; }
 
-    @media (max-width: 480px) {
-      .elegant-card { padding: 1.5rem; }
-      .header-title { font-size: 1rem; }
-    }
+    @media (max-width: 480px) { .elegant-card { padding: 1.5rem; } .header-title { font-size: 1rem; } }
   </style>
 </head>
 <body>
@@ -201,6 +171,12 @@
             <label class="form-label text-secondary">⏳ Awaiting Adm.</label>
             <input type="number" id="awaitingAdmission" class="form-control" value="0" min="0">
           </div>
+          
+          <!-- INPUT JUMLAH KESELURUHAN MANUAL -->
+          <div class="col-12 mt-3 pt-3 border-top">
+            <label class="form-label" style="color: var(--primary-dark); font-size: 0.85rem;">👥 Jumlah Keseluruhan Pesakit</label>
+            <input type="number" id="jumlahPesakit" class="form-control text-primary" style="font-size: 1.1rem;" value="0" min="0" required>
+          </div>
         </div>
 
         <div class="section-title mt-2">
@@ -225,42 +201,10 @@
 
   </div>
 
-  <!-- FOOTER PROFESIONAL -->
-  <style>
-    .pro-footer {
-      margin-top: 2.5rem;
-      padding: 1.2rem 0;
-      border-top: 1px solid #e2e8f0;
-      text-align: center;
-      background: transparent;
-    }
-    .pro-footer p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: #64748b;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
-    .pro-footer .author {
-      font-weight: 700;
-      color: #0f172a; /* Warna gelap profesional */
-    }
-    .pro-footer .divider {
-      margin: 0 0.6rem;
-      color: #cbd5e1;
-    }
-    .pro-footer .rights {
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      letter-spacing: 1.2px;
-      color: #94a3b8;
-    }
-  </style>
-
   <footer class="pro-footer">
     <div class="container">
       <p>
-        &copy; 2026 <span class="author">Yassin Razak MD</span> 
+        &copy; 2026 <span class="author">Yassin Razak</span> 
         <span class="divider">|</span> 
         <span class="rights">All Rights Reserved</span>
       </p>
@@ -323,8 +267,7 @@
       document.getElementById('formSection').classList.remove('d-none');
       document.getElementById('alertBox').classList.add('d-none');
       
-      // Set semula semua nilai kepada 0
-      ['redZone', 'yellowZone', 'greenZone', 'asthmaBay', 'observationBay', 'awaitingAdmission'].forEach(id => {
+      ['redZone', 'yellowZone', 'greenZone', 'asthmaBay', 'observationBay', 'awaitingAdmission', 'jumlahPesakit'].forEach(id => {
         document.getElementById(id).value = "0";
       });
     }
@@ -343,6 +286,7 @@
           asthmaBay: document.getElementById('asthmaBay').value || 0,
           observationBay: document.getElementById('observationBay').value || 0,
           awaitingAdmission: document.getElementById('awaitingAdmission').value || 0,
+          jumlahPesakit: document.getElementById('jumlahPesakit').value || 0, // TAMBAHAN DATA MANUAL
           masalah: document.getElementById('inputMasalah').value.trim(),
           tindakan: document.getElementById('inputTindakan').value.trim()
         }
@@ -370,11 +314,10 @@
           showAlert(data.message, 'success');
           playSuccessSound();
           
-          // Papar butang Muat Turun PDF jika backend memulangkan pdfDownloadUrl
           if (data.pdfDownloadUrl || data.pdfUrl) {
             document.getElementById('btnDownloadPDF').href = data.pdfDownloadUrl || data.pdfUrl;
             document.getElementById('downloadSection').classList.remove('d-none');
-            document.getElementById('formSection').classList.add('d-none'); // Sembunyikan borang
+            document.getElementById('formSection').classList.add('d-none');
           }
         } else {
           showAlert(data.message, 'danger');
