@@ -11,10 +11,10 @@
   <style>
     :root {
       --primary-color: #0f172a;
-      --accent-green: #16a34a;
+      --accent-blue: #0284c7;
       --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
       --card-bg: #ffffff;
-      --border-color: #e2e8f0;
+      --border-color: #cbd5e1;
     }
 
     body {
@@ -28,53 +28,143 @@
     }
 
     .modern-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; }
-    .form-control { background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.88rem; }
-    .btn-phc { background-color: var(--accent-green); border: none; color: #fff; font-weight: 600; border-radius: 6px; }
-
+    .section-title { font-size: 0.8rem; font-weight: 700; color: #0284c7; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 8px; text-transform: uppercase; }
+    .form-control, .form-select { background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.82rem; padding: 5px 8px; }
+    .btn-submit { background-color: #0284c7; color: #fff; font-weight: 600; border: none; font-size: 0.85rem; }
+    .btn-submit:hover { background-color: #0369a1; color: #fff; }
     footer { border-top: 1px solid var(--border-color); background: #ffffff; font-size: 0.75rem; color: #64748b; }
   </style>
 </head>
 <body>
 
-  <div class="container py-2 px-3" style="max-width: 420px;">
+  <div class="container py-2 px-3" style="max-width: 460px;">
     
     <!-- HEADER -->
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <a href="index.html" class="btn btn-sm btn-outline-secondary py-0 px-2" style="font-size:0.75rem;"><i class="fa-solid fa-arrow-left me-1"></i> Kembali</a>
-      <div class="text-end">
-        <h6 class="fw-bold m-0 text-dark">Laporan PHC (Ambulan)</h6>
-        <small id="userDisplay" class="text-muted" style="font-size:0.7rem;"></small>
-      </div>
+      <a href="index.html" class="btn btn-sm btn-outline-secondary py-0 px-2" style="font-size:0.75rem;"><i class="fa-solid fa-arrow-left me-1"></i> Utama</a>
+      <a href="laporanphcsummary.html" class="btn btn-sm btn-outline-info py-0 px-2 fw-bold" style="font-size:0.75rem;"><i class="fa-solid fa-list me-1"></i> Ringkasan PHC</a>
     </div>
 
-    <!-- ALERT BOX -->
     <div id="alertBox" class="alert d-none modern-card text-center fw-bold py-2 px-3 mb-2 small" role="alert"></div>
 
-    <!-- FORM PHC -->
-    <div class="modern-card p-3">
-      <h6 class="mb-2 fw-bold text-dark border-bottom pb-1" style="font-size:0.8rem;">
-        <i class="fa-solid fa-truck-medical me-1 text-success"></i>Butiran Panggilan PHC
-      </h6>
-
-      <div class="mb-2">
-        <label class="fw-bold text-dark mb-1" style="font-size:0.75rem;">Bilangan Panggilan Ambulan:</label>
-        <input type="number" id="totalCalls" class="form-control" value="0" min="0">
-      </div>
-
-      <div class="mb-2">
-        <label class="fw-bold text-dark mb-1" style="font-size:0.75rem;">Lokasi / Kes Utama:</label>
-        <input type="text" id="lokasiKes" class="form-control" placeholder="Contoh: Kes Kemalangan Jalan Raya Jalan Naka">
-      </div>
-
-      <div class="mb-2">
-        <label class="fw-bold text-dark mb-1" style="font-size:0.75rem;">Status Ambulan & Peralatan:</label>
-        <textarea id="statusPeralatan" class="form-control" rows="2" placeholder="Catat status kelengkapan dan kenderaan..."></textarea>
-      </div>
-
-      <button id="btnSubmitPHC" class="btn btn-phc w-100 py-2 mt-1" onclick="submitPHC()">
-        <i class="fa-solid fa-paper-plane me-1"></i>Hantar Laporan PHC
-      </button>
+    <!-- DOWNLOAD BUTTON SECTION (AFTER SUBMIT) -->
+    <div id="downloadSection" class="modern-card p-3 mb-2 text-center d-none">
+      <h6 class="text-success fw-bold m-0 mb-2"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar!</h6>
+      <a id="btnDownloadPDF" href="#" target="_blank" class="btn btn-sm btn-success fw-bold w-100 py-2">
+        <i class="fa-solid fa-file-arrow-down me-1"></i> Muat Turun PDF Laporan
+      </a>
     </div>
+
+    <!-- BORANG PHC -->
+    <form id="phcForm" onsubmit="event.preventDefault(); submitPHC();">
+      <div class="modern-card p-3 mb-2">
+        <div class="section-title"><i class="fa-solid fa-headset me-1"></i> Section 1: Call Triage / Call Dispatcher</div>
+        
+        <div class="row g-2">
+          <div class="col-6">
+            <label class="fw-bold small">MECC HSB</label>
+            <input type="text" id="meccHsb" class="form-control" required>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Call Card Number</label>
+            <input type="text" id="callCardNumber" class="form-control" required>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Priority Case</label>
+            <select id="priorityCase" class="form-select" required>
+              <option value="P1">P1 (Kritikal)</option>
+              <option value="P2">P2 (Semi Kritikal)</option>
+              <option value="P3">P3 (Bukan Kritikal)</option>
+              <option value="P4">P4 (Lain-Lain)</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Case Type</label>
+            <input type="text" id="caseType" class="form-control" placeholder="Contoh: Trauma / Medical" required>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Caller Name</label>
+            <input type="text" id="callerName" class="form-control" required>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Caller Phone</label>
+            <input type="tel" id="callerPhone" class="form-control" required>
+          </div>
+          <div class="col-12">
+            <label class="fw-bold small">Total Patient</label>
+            <input type="number" id="totalPatient" class="form-control" value="1" min="1" required>
+          </div>
+          <div class="col-12">
+            <label class="fw-bold small">Address / Location</label>
+            <textarea id="addressLocation" class="form-control" rows="2" required></textarea>
+          </div>
+          <div class="col-12">
+            <label class="fw-bold small">Landmark</label>
+            <input type="text" id="landmark" class="form-control">
+          </div>
+          <div class="col-12">
+            <label class="fw-bold small">PPP Call Triage / Dispatcher</label>
+            <input type="text" id="pppCallTriage" class="form-control" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="modern-card p-3 mb-2">
+        <div class="section-title"><i class="fa-solid fa-truck-medical me-1"></i> Section 2: Responder / PHC Team</div>
+        
+        <div class="row g-2">
+          <div class="col-6">
+            <label class="fw-bold small">PPP Responder Name</label>
+            <input type="text" id="pppResponder" class="form-control" required>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Ambulance Driver</label>
+            <input type="text" id="ambulanceDriver" class="form-control" required>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Depart Time</label>
+            <input type="time" id="departTime" class="form-control" required>
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">En Route</label>
+            <input type="time" id="enRouteTime" class="form-control">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">At Scene</label>
+            <input type="time" id="atSceneTime" class="form-control">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">At Patient</label>
+            <input type="time" id="atPatientTime" class="form-control">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Transport</label>
+            <input type="time" id="transportTime" class="form-control">
+          </div>
+          <div class="col-6">
+            <label class="fw-bold small">Arrival at Hospital</label>
+            <input type="time" id="arrivalHospitalTime" class="form-control">
+          </div>
+          <div class="col-12">
+            <label class="fw-bold small">Total Distance (KM)</label>
+            <input type="number" id="totalDistance" class="form-control" step="0.1" value="0" required>
+          </div>
+          <div class="col-12">
+            <label class="fw-bold small">Remarks</label>
+            <textarea id="remarks" class="form-control" rows="2" placeholder="Catatan tambahan..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" id="btnSubmit" class="btn btn-submit w-75 py-2">
+          <i class="fa-solid fa-paper-plane me-1"></i> Submit & Jana PDF
+        </button>
+        <button type="reset" class="btn btn-outline-secondary w-25 py-2 fw-bold" onclick="resetForm()">
+          Reset
+        </button>
+      </div>
+    </form>
 
   </div>
 
@@ -83,6 +173,7 @@
   </footer>
 
   <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbx8q_yu9Z9I3g7dk4x7KeLpjdB8hyNAfRdCjiKc6L1bCEYY31nJVptVCEZwF4SWZIxRfA/exec";
     let currentUser = null;
 
     window.onload = function() {
@@ -91,12 +182,76 @@
         window.location.href = "index.html";
       } else {
         currentUser = JSON.parse(user);
-        document.getElementById('userDisplay').innerText = currentUser.nama;
       }
     };
 
-    function submitPHC() {
-      alert("Modul Laporan PHC Berjaya Dihantar!");
+    function showAlert(msg, type) {
+      const box = document.getElementById('alertBox');
+      box.className = `alert alert-${type === 'success' ? 'success' : 'danger'} modern-card text-center fw-bold py-2 px-3 mb-2 small`;
+      box.innerText = msg;
+      box.classList.remove('d-none');
+    }
+
+    function resetForm() {
+      document.getElementById('phcForm').reset();
+      document.getElementById('downloadSection').classList.add('d-none');
+    }
+
+    async function submitPHC() {
+      document.getElementById('btnSubmit').disabled = true;
+      document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Menjana PDF...';
+
+      const payload = {
+        action: 'submitPHC',
+        currentUser: currentUser,
+        data: {
+          meccHsb: document.getElementById('meccHsb').value,
+          callCardNumber: document.getElementById('callCardNumber').value,
+          priorityCase: document.getElementById('priorityCase').value,
+          caseType: document.getElementById('caseType').value,
+          callerName: document.getElementById('callerName').value,
+          callerPhone: document.getElementById('callerPhone').value,
+          totalPatient: document.getElementById('totalPatient').value,
+          addressLocation: document.getElementById('addressLocation').value,
+          landmark: document.getElementById('landmark').value,
+          pppCallTriage: document.getElementById('pppCallTriage').value,
+          pppResponder: document.getElementById('pppResponder').value,
+          ambulanceDriver: document.getElementById('ambulanceDriver').value,
+          departTime: document.getElementById('departTime').value,
+          enRouteTime: document.getElementById('enRouteTime').value,
+          atSceneTime: document.getElementById('atSceneTime').value,
+          atPatientTime: document.getElementById('atPatientTime').value,
+          transportTime: document.getElementById('transportTime').value,
+          arrivalHospitalTime: document.getElementById('arrivalHospitalTime').value,
+          totalDistance: document.getElementById('totalDistance').value,
+          remarks: document.getElementById('remarks').value
+        }
+      };
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        document.getElementById('btnSubmit').disabled = false;
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> Submit & Jana PDF';
+
+        if (data.success) {
+          showAlert(data.message, 'success');
+          document.getElementById('btnDownloadPDF').href = data.pdfDownloadUrl;
+          document.getElementById('downloadSection').classList.remove('d-none');
+          document.getElementById('phcForm').reset(); // Kosongkan borang semula
+        } else {
+          showAlert(data.message, 'danger');
+        }
+      } catch (err) {
+        showAlert('Ralat API: ' + err.message, 'danger');
+        document.getElementById('btnSubmit').disabled = false;
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> Submit & Jana PDF';
+      }
     }
   </script>
 </body>
