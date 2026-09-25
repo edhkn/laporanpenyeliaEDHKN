@@ -34,7 +34,7 @@
     /* Responsive Wrapper - Auto adjusts for PC and Mobile */
     .app-wrapper {
       width: 100%;
-      max-width: 600px; /* Slightly wider for form inputs */
+      max-width: 600px;
       margin: auto;
     }
 
@@ -94,16 +94,6 @@
     }
     
     .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem; letter-spacing: 0.5px; text-transform: uppercase; }
-    
-    /* Input Group Icons */
-    .input-group-text {
-      background-color: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-right: none;
-      border-radius: 10px 0 0 10px;
-    }
-    .form-control.with-icon { border-left: none; border-radius: 0 10px 10px 0; }
-    .form-control.with-icon:focus { border-left: 1px solid var(--accent-blue); }
 
     /* Section Title */
     .section-title {
@@ -144,7 +134,6 @@
       font-weight: 500;
     }
 
-    /* Mobile Adjustments */
     @media (max-width: 480px) {
       .elegant-card { padding: 1.5rem; }
       .header-title { font-size: 1rem; }
@@ -169,56 +158,69 @@
     <!-- ALERT BOX -->
     <div id="alertBox" class="alert d-none elegant-card text-center fw-bold py-3 mb-3 small" style="padding: 1rem!important; border-radius: 12px;" role="alert"></div>
 
-    <!-- FORM SECTION -->
-    <div class="elegant-card">
-      <div class="section-title">
-        <i class="fa-solid fa-hospital-user me-2" style="color: var(--accent-blue);"></i> Bilangan Pesakit Semasa
-      </div>
-      
-      <div class="row g-3 mb-4">
-        <div class="col-6">
-          <label class="form-label text-danger">🔴 Red Zone</label>
-          <input type="number" id="redZone" class="form-control" value="0" min="0">
-        </div>
-        <div class="col-6">
-          <label class="form-label" style="color: #d97706;">🟡 Yellow Zone</label>
-          <input type="number" id="yellowZone" class="form-control" value="0" min="0">
-        </div>
-        <div class="col-6">
-          <label class="form-label text-success">🟢 Green Zone</label>
-          <input type="number" id="greenZone" class="form-control" value="0" min="0">
-        </div>
-        <div class="col-6">
-          <label class="form-label text-info">🫁 Asthma Bay</label>
-          <input type="number" id="asthmaBay" class="form-control" value="0" min="0">
-        </div>
-        <div class="col-6">
-          <label class="form-label" style="color: var(--primary-dark);">🛋️ Obs Bay</label>
-          <input type="number" id="observationBay" class="form-control" value="0" min="0">
-        </div>
-        <div class="col-6">
-          <label class="form-label text-secondary">⏳ Awaiting Adm.</label>
-          <input type="number" id="awaitingAdmission" class="form-control" value="0" min="0">
-        </div>
-      </div>
-
-      <div class="section-title mt-2">
-        <i class="fa-solid fa-clipboard-list me-2" style="color: var(--accent-blue);"></i> Ulasan & Tindakan
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Isu / Masalah Berbangkit:</label>
-        <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taipkan rincian masalah jika ada..."></textarea>
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan Susulan (Jika Perlu):</label>
-        <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Taipkan tindakan yang telah diambil..."></textarea>
-      </div>
-
-      <button id="btnSubmit" class="btn-elegant-primary w-100" onclick="submitReport()">
-        <i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel
+    <!-- DOWNLOAD SECTION (HIDDEN BY DEFAULT) -->
+    <div id="downloadSection" class="elegant-card mb-3 text-center d-none" style="padding: 1.5rem;">
+      <h6 class="text-success fw-bold m-0 mb-3"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar!</h6>
+      <a id="btnDownloadPDF" href="#" target="_blank" class="btn btn-elegant-primary w-100 m-0" style="background-color: #16a34a;">
+        <i class="fa-solid fa-file-arrow-down me-2"></i> Muat Turun PDF Laporan
+      </a>
+      <button class="btn btn-link text-muted mt-2 small text-decoration-none" onclick="resetForm()">
+        <i class="fa-solid fa-rotate-right me-1"></i> Hantar Laporan Baharu
       </button>
+    </div>
+
+    <!-- FORM SECTION -->
+    <div id="formSection" class="elegant-card">
+      <form id="penyeliaanForm" onsubmit="event.preventDefault(); submitReport();">
+        <div class="section-title">
+          <i class="fa-solid fa-hospital-user me-2" style="color: var(--accent-blue);"></i> Bilangan Pesakit Semasa
+        </div>
+        
+        <div class="row g-3 mb-4">
+          <div class="col-6">
+            <label class="form-label text-danger">🔴 Red Zone</label>
+            <input type="number" id="redZone" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label" style="color: #d97706;">🟡 Yellow Zone</label>
+            <input type="number" id="yellowZone" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label text-success">🟢 Green Zone</label>
+            <input type="number" id="greenZone" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label text-info">🫁 Asthma Bay</label>
+            <input type="number" id="asthmaBay" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label" style="color: var(--primary-dark);">🛋️ Obs Bay</label>
+            <input type="number" id="observationBay" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label text-secondary">⏳ Awaiting Adm.</label>
+            <input type="number" id="awaitingAdmission" class="form-control" value="0" min="0">
+          </div>
+        </div>
+
+        <div class="section-title mt-2">
+          <i class="fa-solid fa-clipboard-list me-2" style="color: var(--accent-blue);"></i> Ulasan & Tindakan
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Isu / Masalah Berbangkit:</label>
+          <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taipkan rincian masalah jika ada..."></textarea>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan Susulan (Jika Perlu):</label>
+          <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Taipkan tindakan yang telah diambil..."></textarea>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="btn-elegant-primary w-100">
+          <i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel
+        </button>
+      </form>
     </div>
 
   </div>
@@ -233,7 +235,6 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbx21hpI88izcRUUIaq77sVTSQoTmG3riExl8azhaYf2jk0p3qyc2KSSDe5uNbv3SX8XPg/exec";
     let currentUser = null;
 
-    // Semak Akses Log Masuk
     window.onload = function() {
       const user = localStorage.getItem('currentUser');
       if (!user) {
@@ -280,6 +281,18 @@
       box.classList.remove('d-none');
     }
 
+    function resetForm() {
+      document.getElementById('penyeliaanForm').reset();
+      document.getElementById('downloadSection').classList.add('d-none');
+      document.getElementById('formSection').classList.remove('d-none');
+      document.getElementById('alertBox').classList.add('d-none');
+      
+      // Set semula semua nilai kepada 0
+      ['redZone', 'yellowZone', 'greenZone', 'asthmaBay', 'observationBay', 'awaitingAdmission'].forEach(id => {
+        document.getElementById(id).value = "0";
+      });
+    }
+
     async function submitReport() {
       document.getElementById('btnSubmit').disabled = true;
       document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Menjana Dokumen...';
@@ -320,6 +333,13 @@
         if (data.success) {
           showAlert(data.message, 'success');
           playSuccessSound();
+          
+          // Papar butang Muat Turun PDF jika backend memulangkan pdfDownloadUrl
+          if (data.pdfDownloadUrl || data.pdfUrl) {
+            document.getElementById('btnDownloadPDF').href = data.pdfDownloadUrl || data.pdfUrl;
+            document.getElementById('downloadSection').classList.remove('d-none');
+            document.getElementById('formSection').classList.add('d-none'); // Sembunyikan borang
+          }
         } else {
           showAlert(data.message, 'danger');
         }
