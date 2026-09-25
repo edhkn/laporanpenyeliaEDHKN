@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ringkasan Laporan PHC - Unit Kecemasan & Trauma</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #0f172a;
+      --accent-blue: #0284c7;
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      --card-bg: #ffffff;
+      --border-color: #cbd5e1;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      font-family: 'Inter', sans-serif;
+      color: #334155;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .modern-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; }
+    .table { font-size: 0.78rem; }
+    .badge-p1 { background-color: #dc2626; }
+    .badge-p2 { background-color: #d97706; }
+    .badge-p3 { background-color: #16a34a; }
+    .badge-p4 { background-color: #64748b; }
+    footer { border-top: 1px solid var(--border-color); background: #ffffff; font-size: 0.75rem; color: #64748b; }
+  </style>
+</head>
+<body>
+
+  <div class="container py-2 px-3" style="max-width: 500px;">
+    
+    <!-- HEADER -->
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <a href="laporanphc.html" class="btn btn-sm btn-outline-secondary py-0 px-2" style="font-size:0.75rem;"><i class="fa-solid fa-arrow-left me-1"></i> Borang PHC</a>
+      <h6 class="fw-bold m-0 text-dark">Ringkasan Laporan PHC</h6>
+    </div>
+
+    <!-- FILTER DROPDOWN MENU -->
+    <div class="modern-card p-2 mb-2 d-flex align-items-center justify-content-between">
+      <label class="fw-bold small m-0"><i class="fa-solid fa-filter me-1 text-primary"></i> Julat Tarikh:</label>
+      <select id="dateRangeSelect" class="form-select form-select-sm w-50" onchange="loadSummary()">
+        <option value="">10 Kes Terkini</option>
+        <option value="today">Hari Ini</option>
+        <option value="7days">7 Hari Terakhir</option>
+        <option value="30days">30 Hari Terakhir</option>
+        <option value="all">Semua Kes</option>
+      </select>
+    </div>
+
+    <!-- TAMPILAN SENARAI KES -->
+    <div class="modern-card p-2 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle m-0">
+          <thead class="table-light">
+            <tr>
+              <th>Tarikh</th>
+              <th>Card / Kes</th>
+              <th>Penyelia</th>
+              <th>PDF</th>
+            </tr>
+          </thead>
+          <tbody id="summaryTableBody">
+            <tr>
+              <td colspan="4" class="text-center py-3 text-muted">
+                <i class="fa-solid fa-spinner fa-spin me-1"></i> Memuatkan data...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="text-center py-2 mt-2">
+    <div class="container"><span>© 2026 Yassin Razak | All Rights Reserved</span></div>
+  </footer>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbx8q_yu9Z9I3g7dk4x7KeLpjdB8hyNAfRdCjiKc6L1bCEYY31nJVptVCEZwF4SWZIxRfA/exec";
+
+    window.onload = function() {
+      loadSummary();
+    };
+
+    async function loadSummary() {
+      const range = document.getElementById('dateRangeSelect').value;
+      const tbody = document.getElementById('summaryTableBody');
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center py-3 text-muted"><i class="fa-solid fa-spinner fa-spin me-1"></i> Memuatkan data...</td></tr>';
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'getPHCSummary', dateRange: range })
+        });
+
+        const data = await res.json();
+        if (data.success && data.list.length > 0) {
+          tbody.innerHTML = '';
+          data.list.forEach(item => {
+            let badgeClass = 'badge-p4';
+            if (item.priority === 'P1') badgeClass = 'badge-p1';
+            if (item.priority === 'P2') badgeClass = 'badge-p2';
+            if (item.priority === 'P3') badgeClass = 'badge-p3';
+
+            tbody.innerHTML += `
+              <tr>
+                <td><small>${item.tarikh}</small></td>
+                <td>
+                  <span class="badge ${badgeClass}">${item.priority}</span> 
+                  <b>${item.callCard}</b><br>
+                  <small class="text-muted">${item.caseType}</small>
+                </td>
+                <td><small>${item.pppResponder}</small></td>
+                <td>
+                  <a href="${item.pdfUrl}" target="_blank" class="btn btn-xs btn-outline-danger py-0 px-1" title="Muat Turun PDF">
+                    <i class="fa-solid fa-file-pdf"></i>
+                  </a>
+                </td>
+              </tr>
+            `;
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="4" class="text-center py-3 text-muted">Tiada rekod ditemui.</td></tr>';
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-3 text-danger">Ralat: ${err.message}</td></tr>`;
+      }
+    }
+  </script>
+</body>
+</html>
