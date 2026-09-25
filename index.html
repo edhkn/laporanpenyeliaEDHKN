@@ -4,18 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Utama - Unit Kecemasan & Trauma</title>
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts & Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --primary-color: #0f172a;
+      --primary-dark: #0f172a;    /* Deep Executive Navy */
       --accent-blue: #0284c7;
       --accent-hover: #0369a1;
-      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      --card-bg: #ffffff;
-      --border-color: #e2e8f0;
+      --text-muted: #64748b;
+      --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --card-bg: rgba(255, 255, 255, 0.98);
     }
 
     body {
@@ -25,166 +27,260 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
     }
 
-    .modern-card {
+    /* Responsive Wrapper - Auto adjusts for PC and Mobile */
+    .app-wrapper {
+      width: 100%;
+      max-width: 520px; /* Perfect width for PC, scales down for mobile */
+      margin: auto;
+    }
+
+    /* Elegant Card Design */
+    .elegant-card {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 2.5rem 2rem;
+      transition: all 0.3s ease;
     }
 
-    .logo-img { width: 70px; height: auto; }
+    .logo-img { width: 85px; height: auto; margin-bottom: 1rem; }
 
+    .app-title { font-weight: 800; color: var(--primary-dark); letter-spacing: -0.5px; font-size: 1.25rem; }
+    .app-subtitle { font-weight: 600; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Elegant Input Fields */
     .form-control {
       background-color: #f8fafc;
-      border: 1px solid var(--border-color);
-      color: #0f172a;
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 0.88rem;
+      border: 1px solid #cbd5e1;
+      color: var(--primary-dark);
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
     }
+    .form-control:focus {
+      background-color: #ffffff;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+    }
+    .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem; letter-spacing: 0.5px; }
 
-    .btn-modern-primary {
-      background-color: var(--accent-blue);
-      border: none;
+    /* Elegant Buttons */
+    .btn-elegant-primary {
+      background-color: var(--primary-dark);
       color: #ffffff;
       font-weight: 600;
-      border-radius: 6px;
-      padding: 9px;
-      font-size: 0.9rem;
+      border-radius: 10px;
+      padding: 0.8rem 1.5rem;
+      font-size: 0.95rem;
+      border: none;
+      transition: all 0.3s ease;
     }
-    .btn-modern-primary:hover { background-color: var(--accent-hover); color: #fff; }
+    .btn-elegant-primary:hover {
+      background-color: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(15, 23, 42, 0.15);
+      color: #fff;
+    }
 
-    .btn-portal {
-      padding: 10px 12px;
-      font-weight: 700;
-      font-size: 0.88rem;
-      border-radius: 8px;
-      text-align: left;
+    /* Portal Menu Buttons (Modern Tiles) */
+    .portal-tile {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      transition: all 0.2s ease;
+      padding: 1rem 1.25rem;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
       text-decoration: none;
+      color: var(--primary-dark);
+      transition: all 0.3s ease;
+      margin-bottom: 0.8rem;
     }
-    .btn-portal:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+    .portal-tile:hover {
+      border-color: var(--accent-blue);
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.12);
+      transform: translateY(-3px);
+    }
+    .tile-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-right: 1.25rem;
+      flex-shrink: 0;
+    }
+    .icon-blue { background: #e0f2fe; color: #0284c7; }
+    .icon-green { background: #dcfce7; color: #16a34a; }
+    .icon-purple { background: #f3e8ff; color: #9333ea; }
+    
+    .tile-content { flex-grow: 1; }
+    .tile-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .tile-desc { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+    .tile-arrow { color: #cbd5e1; font-size: 1rem; transition: transform 0.2s; }
+    .portal-tile:hover .tile-arrow { color: var(--accent-blue); transform: translateX(4px); }
 
-    a.modern-link { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
+    a.elegant-link { color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+    a.elegant-link:hover { color: var(--accent-hover); text-decoration: underline; }
 
     footer {
-      border-top: 1px solid var(--border-color);
-      background: #ffffff;
-      font-size: 0.75rem;
-      color: #64748b;
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Adjust padding for smaller mobile screens */
+    @media (max-width: 480px) {
+      .elegant-card { padding: 2rem 1.5rem; }
+      .tile-icon { width: 42px; height: 42px; font-size: 1.1rem; margin-right: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container py-3 px-3" style="max-width: 420px;">
+  <div class="app-wrapper">
     
     <!-- HEADER LOGO & TITLE -->
-    <div class="text-center mb-3">
-      <img src="https://lh3.googleusercontent.com/d/1uYqj710Az4AxauZkMy4d8QzaE-xP9MPs" class="logo-img mb-1" alt="Logo KKM">
-      <h5 class="fw-extrabold text-dark m-0">Unit Kecemasan & Trauma Hospital Kuala Nerang</h5>
-      <p class="text-muted small fw-semibold m-0" style="font-size: 0.75rem;">Sistem Laporan Digital</p>
+    <div class="text-center mb-4">
+      <img src="https://lh3.googleusercontent.com/d/1uYqj710Az4AxauZkMy4d8QzaE-xP9MPs" class="logo-img" alt="Logo KKM">
+      <h3 class="app-title">Unit Kecemasan & Trauma</h3>
+      <p class="app-subtitle">Hospital Kuala Nerang</p>
     </div>
 
     <!-- ALERT BOX -->
-    <div id="alertBox" class="alert d-none modern-card text-center fw-bold py-2 px-3 mb-2 small" role="alert"></div>
+    <div id="alertBox" class="alert d-none elegant-card text-center fw-bold py-3 mb-3 small" style="padding: 1rem!important; border-radius: 12px;" role="alert"></div>
 
     <!-- 1. LOG IN FORM SECTION -->
-    <div id="loginSection" class="modern-card p-3">
-      <h6 class="mb-3 text-center fw-bold text-dark">
-        <i class="fa-solid fa-user-check me-1 text-primary"></i>Log Masuk Pegawai / Penyelia
-      </h6>
-      <div class="mb-2">
-        <label class="form-label mb-1 small fw-bold text-secondary" style="font-size:0.75rem;">USERNAME</label>
-        <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username" required>
-      </div>
+    <div id="loginSection" class="elegant-card">
+      <h5 class="mb-4 text-center fw-bold" style="color: var(--primary-dark);">
+        Log Masuk Portal
+      </h5>
       <div class="mb-3">
-        <label class="form-label mb-1 small fw-bold text-secondary" style="font-size:0.75rem;">KATA LALUAN</label>
+        <label class="form-label">NAMA PENGGUNA (USERNAME)</label>
+        <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username Anda" required>
+      </div>
+      <div class="mb-4">
+        <label class="form-label">KATA LALUAN</label>
         <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
       </div>
-      <button class="btn btn-modern-primary w-100" onclick="handleApi('login')">
-        Log Masuk <i class="fa-solid fa-arrow-right ms-1"></i>
+      <button class="btn btn-elegant-primary w-100 mb-3" onclick="handleApi('login')">
+        Log Masuk Akses <i class="fa-solid fa-arrow-right ms-2"></i>
       </button>
-      <div class="d-flex justify-content-between mt-2 pt-1 small" style="font-size:0.8rem;">
-        <a href="#" class="modern-link" onclick="showSection('registerSection')">Daftar Akaun</a>
-        <a href="#" class="modern-link" onclick="showSection('forgotSection')">Lupa Kata Laluan?</a>
+      <div class="d-flex justify-content-between">
+        <a href="#" class="elegant-link" onclick="showSection('registerSection')">Pendaftaran Baharu</a>
+        <a href="#" class="elegant-link" style="color: var(--text-muted);" onclick="showSection('forgotSection')">Lupa Kata Laluan?</a>
       </div>
     </div>
 
     <!-- 2. MAIN PORTAL SECTION (AFTER LOGIN) -->
-    <div id="portalSection" class="modern-card p-3 d-none">
-      <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+    <div id="portalSection" class="elegant-card d-none">
+      <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
         <div>
-          <h6 class="m-0 fw-bold text-dark small" id="userDisplayName">Selamat Datang</h6>
-          <small id="userDisplayEmail" class="text-muted" style="font-size: 0.7rem;"></small>
+          <h6 class="m-0 fw-bold" style="color: var(--primary-dark);" id="userDisplayName">Selamat Datang</h6>
+          <small id="userDisplayEmail" class="text-muted" style="font-weight: 500;"></small>
         </div>
-        <button class="btn btn-xs btn-outline-danger fw-bold py-0 px-2" style="border-radius:4px; font-size:0.75rem;" onclick="logout()">
-          <i class="fa-solid fa-power-off me-1"></i> Keluar
+        <button class="btn btn-sm btn-light fw-bold text-danger border" style="border-radius:8px;" onclick="logout()">
+          <i class="fa-solid fa-power-off"></i> Log Keluar
         </button>
       </div>
 
-      <p class="fw-bold text-secondary text-uppercase mb-2" style="font-size: 0.75rem;">Sila Pilih Modul Laporan:</p>
+      <p class="form-label mb-3">MODUL LAPORAN DIGITAL</p>
 
-      <div class="d-grid gap-2">
+      <div class="d-flex flex-column">
+        
         <!-- PAUTAN KE LAPORAN PENYELIAAN -->
-        <a href="laporanpenyeliaan.html" class="btn btn-primary btn-portal">
-          <div>
-            <div class="fw-bold"><i class="fa-solid fa-file-invoice-dollar me-2"></i> Laporan Penyeliaan</div>
-            <div class="fw-normal text-white-50" style="font-size: 0.72rem;">Input bilangan pesakit zon, isu & jana PDF.</div>
+        <a href="laporanpenyeliaan.html" class="portal-tile">
+          <div class="tile-icon icon-blue"><i class="fa-solid fa-clipboard-user"></i></div>
+          <div class="tile-content">
+            <div class="tile-title">Laporan Penyeliaan</div>
+            <div class="tile-desc">Borang bilangan pesakit & laporan pemerhatian zon kecemasan.</div>
           </div>
-          <i class="fa-solid fa-chevron-right ms-2"></i>
+          <i class="fa-solid fa-chevron-right tile-arrow"></i>
         </a>
 
         <!-- PAUTAN KE LAPORAN PHC -->
-        <a href="laporanphc.html" class="btn btn-success btn-portal">
-          <div>
-            <div class="fw-bold"><i class="fa-solid fa-truck-medical me-2"></i> Laporan PHC (Ambulan)</div>
-            <div class="fw-normal text-white-50" style="font-size: 0.72rem;">Borang kes panggilan kecemasan ambulan.</div>
+        <a href="laporanphc.html" class="portal-tile">
+          <div class="tile-icon icon-green"><i class="fa-solid fa-truck-medical"></i></div>
+          <div class="tile-content">
+            <div class="tile-title">Laporan PHC (Ambulan)</div>
+            <div class="tile-desc">Modul perekodan kes panggilan kecemasan Pre-Hospital Care.</div>
           </div>
-          <i class="fa-solid fa-chevron-right ms-2"></i>
+          <i class="fa-solid fa-chevron-right tile-arrow"></i>
         </a>
 
         <!-- PAUTAN KE RINGKASAN LAPORAN PHC -->
-        <a href="laporanphcsummary.html" class="btn btn-info text-white btn-portal">
-          <div>
-            <div class="fw-bold"><i class="fa-solid fa-list-check me-2"></i> Ringkasan Laporan PHC</div>
-            <div class="fw-normal text-white-50" style="font-size: 0.72rem;">Semak senarai kes & muat turun PDF.</div>
+        <a href="laporanphcsummary.html" class="portal-tile">
+          <div class="tile-icon icon-purple"><i class="fa-solid fa-file-contract"></i></div>
+          <div class="tile-content">
+            <div class="tile-title">Ringkasan Laporan PHC</div>
+            <div class="tile-desc">Semakan senarai kes terdahulu & muat turun fail PDF.</div>
           </div>
-          <i class="fa-solid fa-chevron-right ms-2"></i>
+          <i class="fa-solid fa-chevron-right tile-arrow"></i>
         </a>
+
       </div>
     </div>
 
     <!-- 3. REGISTER FORM -->
-    <div id="registerSection" class="modern-card p-3 d-none">
-      <h6 class="mb-2 text-center fw-bold text-dark"><i class="fa-solid fa-user-plus me-1 text-success"></i>Pendaftaran Akaun</h6>
-      <input type="text" id="regUsername" class="form-control mb-1" placeholder="Username" required>
-      <input type="text" id="regNama" class="form-control mb-1" placeholder="Nama Penuh" required>
-      <input type="email" id="regEmail" class="form-control mb-1" placeholder="contoh@moh.gov.my" required>
-      <input type="password" id="regPassword" class="form-control mb-2" placeholder="Kata Laluan" required>
-      <button class="btn btn-success w-100 mb-1 py-1.5 fw-semibold" style="border-radius:6px; font-size:0.85rem;" onclick="handleApi('register')">Daftar Pengguna</button>
-      <button class="btn btn-link w-100 text-secondary text-decoration-none p-0" style="font-size:0.75rem;" onclick="showSection('loginSection')">← Batal</button>
+    <div id="registerSection" class="elegant-card d-none">
+      <h5 class="mb-4 text-center fw-bold" style="color: var(--primary-dark);">Pendaftaran Akaun</h5>
+      
+      <div class="mb-3">
+        <label class="form-label">USERNAME</label>
+        <input type="text" id="regUsername" class="form-control" placeholder="Cipta Username" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">NAMA PENUH</label>
+        <input type="text" id="regNama" class="form-control" placeholder="Nama Rasmi Penyelia" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">E-MEL KEMENTERIAN</label>
+        <input type="email" id="regEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
+      </div>
+      <div class="mb-4">
+        <label class="form-label">KATA LALUAN</label>
+        <input type="password" id="regPassword" class="form-control" placeholder="Cipta Kata Laluan" required>
+      </div>
+      
+      <button class="btn btn-elegant-primary w-100 mb-3" style="background-color: #16a34a;" onclick="handleApi('register')">Daftar Akaun Baru</button>
+      <div class="text-center">
+        <a href="#" class="elegant-link text-muted" onclick="showSection('loginSection')"><i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Log Masuk</a>
+      </div>
     </div>
 
     <!-- 4. FORGOT PASSWORD -->
-    <div id="forgotSection" class="modern-card p-3 d-none">
-      <h6 class="mb-1 text-center fw-bold text-dark"><i class="fa-solid fa-key me-1 text-warning"></i>Pemulihan Kata Laluan</h6>
-      <input type="email" id="forgotEmail" class="form-control mb-2" placeholder="contoh@moh.gov.my" required>
-      <button class="btn btn-warning w-100 mb-1 py-1.5 fw-semibold text-dark" style="border-radius:6px; font-size:0.85rem;" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
-      <button class="btn btn-link w-100 text-secondary text-decoration-none p-0" style="font-size:0.75rem;" onclick="showSection('loginSection')">← Batal</button>
+    <div id="forgotSection" class="elegant-card d-none">
+      <h5 class="mb-3 text-center fw-bold" style="color: var(--primary-dark);">Pemulihan Kata Laluan</h5>
+      <p class="text-muted text-center mb-4" style="font-size:0.85rem;">Kata laluan anda akan dihantar terus ke alamat e-mel berdaftar.</p>
+      
+      <div class="mb-4">
+        <label class="form-label">E-MEL BERDAFTAR</label>
+        <input type="email" id="forgotEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
+      </div>
+      
+      <button class="btn btn-elegant-primary w-100 mb-3" style="background-color: #d97706;" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
+      <div class="text-center">
+        <a href="#" class="elegant-link text-muted" onclick="showSection('loginSection')"><i class="fa-solid fa-arrow-left me-1"></i> Batal & Kembali</a>
+      </div>
     </div>
 
   </div>
 
-  <footer class="text-center py-2 mt-2">
+  <footer>
     <div class="container">
-      <span>© 2026 Yassin Razak | All Rights Reserved</span>
+      © 2026 Yassin Razak | All Rights Reserved
     </div>
   </footer>
 
@@ -204,7 +300,13 @@
 
     function showAlert(msg, type) {
       const box = document.getElementById('alertBox');
-      box.className = `alert alert-${type === 'success' ? 'success' : 'danger'} modern-card text-center fw-bold py-2 px-3 mb-2 small`;
+      // Warna amaran elegan
+      const bg = type === 'success' ? '#dcfce7' : '#fee2e2';
+      const color = type === 'success' ? '#16a34a' : '#dc2626';
+      
+      box.style.backgroundColor = bg;
+      box.style.color = color;
+      box.style.borderColor = color;
       box.innerText = msg;
       box.classList.remove('d-none');
     }
@@ -220,6 +322,8 @@
       if (action === 'login') {
         payload.username = document.getElementById('loginUsername').value.trim();
         payload.password = document.getElementById('loginPassword').value.trim();
+        
+        if(!payload.username || !payload.password) return showAlert("Sila isi nama pengguna & kata laluan", "danger");
       } else if (action === 'register') {
         payload.username = document.getElementById('regUsername').value.trim();
         payload.nama = document.getElementById('regNama').value.trim();
@@ -228,6 +332,8 @@
       } else if (action === 'retrieve') {
         payload.email = document.getElementById('forgotEmail').value.trim();
       }
+
+      // Butang Loading State (Hanya untuk rujukan UX Visual jika perlu)
 
       try {
         const res = await fetch(API_URL, {
@@ -251,12 +357,14 @@
           showAlert(data.message, 'danger');
         }
       } catch (err) {
-        showAlert('Ralat API: ' + err.message, 'danger');
+        showAlert('Ralat Rangkaian Pelayan: Sila pastikan pautan Apps Script tepat.', 'danger');
       }
     }
 
     function logout() {
       localStorage.removeItem('currentUser');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
       showSection('loginSection');
     }
   </script>
