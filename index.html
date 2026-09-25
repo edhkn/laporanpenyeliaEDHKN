@@ -58,7 +58,7 @@
     .btn-modern-primary:hover { background-color: var(--accent-hover); color: #fff; }
 
     .btn-portal {
-      padding: 12px;
+      padding: 10px 12px;
       font-weight: 700;
       font-size: 0.88rem;
       border-radius: 8px;
@@ -129,19 +129,34 @@
         </button>
       </div>
 
-      <p class="fw-bold text-secondary text-uppercase mb-2" style="font-size: 0.75rem;">Sila Pilih Jenis Laporan:</p>
+      <p class="fw-bold text-secondary text-uppercase mb-2" style="font-size: 0.75rem;">Sila Pilih Modul Laporan:</p>
 
       <div class="d-grid gap-2">
         <!-- PAUTAN KE LAPORAN PENYELIAAN -->
         <a href="laporanpenyeliaan.html" class="btn btn-primary btn-portal">
-          <span><i class="fa-solid fa-file-invoice-dollar me-2"></i> Laporan Penyeliaan</span>
-          <i class="fa-solid fa-chevron-right"></i>
+          <div>
+            <div class="fw-bold"><i class="fa-solid fa-file-invoice-dollar me-2"></i> Laporan Penyeliaan</div>
+            <div class="fw-normal text-white-50" style="font-size: 0.72rem;">Input bilangan pesakit zon, isu & jana PDF.</div>
+          </div>
+          <i class="fa-solid fa-chevron-right ms-2"></i>
         </a>
 
         <!-- PAUTAN KE LAPORAN PHC -->
         <a href="laporanphc.html" class="btn btn-success btn-portal">
-          <span><i class="fa-solid fa-truck-medical me-2"></i> Laporan PHC (Ambulan)</span>
-          <i class="fa-solid fa-chevron-right"></i>
+          <div>
+            <div class="fw-bold"><i class="fa-solid fa-truck-medical me-2"></i> Laporan PHC (Ambulan)</div>
+            <div class="fw-normal text-white-50" style="font-size: 0.72rem;">Borang kes panggilan kecemasan ambulan.</div>
+          </div>
+          <i class="fa-solid fa-chevron-right ms-2"></i>
+        </a>
+
+        <!-- PAUTAN KE RINGKASAN LAPORAN PHC -->
+        <a href="laporanphcsummary.html" class="btn btn-info text-white btn-portal">
+          <div>
+            <div class="fw-bold"><i class="fa-solid fa-list-check me-2"></i> Ringkasan Laporan PHC</div>
+            <div class="fw-normal text-white-50" style="font-size: 0.72rem;">Semak senarai kes & muat turun PDF.</div>
+          </div>
+          <i class="fa-solid fa-chevron-right ms-2"></i>
         </a>
       </div>
     </div>
