@@ -157,12 +157,35 @@
       color: var(--primary-dark);
     }
 
-    footer {
-      margin-top: 1rem;
+    /* FOOTER PROFESIONAL */
+    .pro-footer {
+      margin-top: 2.5rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid #e2e8f0;
       text-align: center;
+      background: transparent;
+      width: 100%;
+    }
+    .pro-footer p {
+      margin: 0;
       font-size: 0.8rem;
-      color: #94a3b8;
+      color: #64748b;
       font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .pro-footer .author {
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .pro-footer .divider {
+      margin: 0 0.6rem;
+      color: #cbd5e1;
+    }
+    .pro-footer .rights {
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 1.2px;
+      color: #94a3b8;
     }
 
     /* Mobile Adjustments */
@@ -270,23 +293,29 @@
         </div>
         
         <div class="row g-3">
-          <div class="col-sm-6">
+          <!-- DIKEMASKINI: Ditambah Nama PPK (Menggunakan col-sm-4 supaya 3 baris) -->
+          <div class="col-sm-4">
             <label class="form-label">PPP Responder Name</label>
             <input type="text" id="pppResponder" class="form-control" placeholder="Nama PPP Responder" required>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
+            <label class="form-label">Nama PPK</label>
+            <input type="text" id="ppkName" class="form-control" placeholder="Nama PPK (Jika Ada)">
+          </div>
+          <div class="col-sm-4">
             <label class="form-label">Ambulance Driver</label>
             <input type="text" id="ambulanceDriver" class="form-control" placeholder="Nama Pemandu" required>
           </div>
-          <div class="col-sm-4 col-6">
+
+          <div class="col-sm-4 col-6 mt-4">
             <label class="form-label">Depart Time</label>
             <input type="time" id="departTime" class="form-control" required>
           </div>
-          <div class="col-sm-4 col-6">
+          <div class="col-sm-4 col-6 mt-4">
             <label class="form-label">En Route</label>
             <input type="time" id="enRouteTime" class="form-control">
           </div>
-          <div class="col-sm-4 col-6">
+          <div class="col-sm-4 col-6 mt-sm-4">
             <label class="form-label">At Scene</label>
             <input type="time" id="atSceneTime" class="form-control">
           </div>
@@ -328,38 +357,6 @@
     </form>
 
   </div>
-
- <!-- FOOTER PROFESIONAL -->
-  <style>
-    .pro-footer {
-      margin-top: 2.5rem;
-      padding: 1.2rem 0;
-      border-top: 1px solid #e2e8f0;
-      text-align: center;
-      background: transparent;
-    }
-    .pro-footer p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: #64748b;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
-    .pro-footer .author {
-      font-weight: 700;
-      color: #0f172a; /* Warna gelap profesional */
-    }
-    .pro-footer .divider {
-      margin: 0 0.6rem;
-      color: #cbd5e1;
-    }
-    .pro-footer .rights {
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      letter-spacing: 1.2px;
-      color: #94a3b8;
-    }
-  </style>
 
   <footer class="pro-footer">
     <div class="container">
@@ -446,8 +443,11 @@
           addressLocation: document.getElementById('addressLocation').value,
           landmark: document.getElementById('landmark').value,
           pppCallTriage: document.getElementById('pppCallTriage').value,
+          
           pppResponder: document.getElementById('pppResponder').value,
+          ppkName: document.getElementById('ppkName').value, // DATA BAHARU (NAMA PPK)
           ambulanceDriver: document.getElementById('ambulanceDriver').value,
+          
           departTime: document.getElementById('departTime').value,
           enRouteTime: document.getElementById('enRouteTime').value,
           atSceneTime: document.getElementById('atSceneTime').value,
