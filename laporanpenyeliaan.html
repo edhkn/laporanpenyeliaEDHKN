@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laporan Penyeliaan - Unit Kecemasan & Trauma</title>
+  <title>Laporan Penyeliaan - Unit Kecemasan & Trauma HKN</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -58,7 +58,7 @@
     .header-title { font-weight: 800; color: var(--primary-dark); font-size: 1.1rem; margin: 0; }
     .header-subtitle { font-weight: 600; color: var(--accent-blue); font-size: 0.75rem; text-transform: uppercase; }
 
-    .form-control {
+    .form-control, .form-select {
       background-color: #f8fafc;
       border: 1px solid #cbd5e1;
       color: var(--primary-dark);
@@ -68,7 +68,7 @@
       font-weight: 600;
       transition: all 0.2s ease;
     }
-    .form-control:focus {
+    .form-control:focus, .form-select:focus {
       background-color: #ffffff;
       border-color: var(--accent-blue);
       box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
@@ -130,7 +130,7 @@
 
     <!-- DOWNLOAD SECTION (HIDDEN BY DEFAULT) -->
     <div id="downloadSection" class="elegant-card mb-3 text-center d-none" style="padding: 1.5rem;">
-      <h6 class="text-success fw-bold m-0 mb-3"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar!</h6>
+      <h6 class="text-success fw-bold m-0 mb-3"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar & E-Mel Dihantar!</h6>
       <a id="btnDownloadPDF" href="#" target="_blank" class="btn btn-elegant-primary w-100 m-0" style="background-color: #16a34a;">
         <i class="fa-solid fa-file-arrow-down me-2"></i> Muat Turun PDF Laporan
       </a>
@@ -142,6 +142,27 @@
     <!-- FORM SECTION -->
     <div id="formSection" class="elegant-card">
       <form id="penyeliaanForm" onsubmit="event.preventDefault(); submitReport();">
+        
+        <!-- MAKLUMAT SYIF & TARIKH -->
+        <div class="section-title">
+          <i class="fa-regular fa-clock me-2" style="color: var(--accent-blue);"></i> Syif & Tarikh Laporan
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label class="form-label">Tarikh Laporan</label>
+            <input type="date" id="reportDate" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Syif Bertugas</label>
+            <select id="shiftType" class="form-select" required>
+              <option value="Pagi">Pagi (7:00 AM - 2:00 PM)</option>
+              <option value="Petang">Petang (2:00 PM - 9:00 PM)</option>
+              <option value="Malam">Malam (9:00 PM - 7:00 AM)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- BILANGAN PESAKIT SEMASA -->
         <div class="section-title">
           <i class="fa-solid fa-hospital-user me-2" style="color: var(--accent-blue);"></i> Bilangan Pesakit Semasa
         </div>
@@ -149,46 +170,47 @@
         <div class="row g-3 mb-4">
           <div class="col-6">
             <label class="form-label text-danger">🔴 Red Zone</label>
-            <input type="number" id="redZone" class="form-control" value="0" min="0">
+            <input type="number" id="redZone" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
           </div>
           <div class="col-6">
             <label class="form-label" style="color: #d97706;">🟡 Yellow Zone</label>
-            <input type="number" id="yellowZone" class="form-control" value="0" min="0">
+            <input type="number" id="yellowZone" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
           </div>
           <div class="col-6">
             <label class="form-label text-success">🟢 Green Zone</label>
-            <input type="number" id="greenZone" class="form-control" value="0" min="0">
+            <input type="number" id="greenZone" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
           </div>
           <div class="col-6">
             <label class="form-label text-info">🫁 Asthma Bay</label>
-            <input type="number" id="asthmaBay" class="form-control" value="0" min="0">
+            <input type="number" id="asthmaBay" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
           </div>
           <div class="col-6">
             <label class="form-label" style="color: var(--primary-dark);">🛋️ Obs Bay</label>
-            <input type="number" id="observationBay" class="form-control" value="0" min="0">
+            <input type="number" id="observationBay" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
           </div>
           <div class="col-6">
             <label class="form-label text-secondary">⏳ Awaiting Adm.</label>
-            <input type="number" id="awaitingAdmission" class="form-control" value="0" min="0">
+            <input type="number" id="awaitingAdmission" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
           </div>
           
-          <!-- INPUT JUMLAH KESELURUHAN MANUAL -->
+          <!-- INPUT JUMLAH KESELURUHAN (AUTO & MANUAL) -->
           <div class="col-12 mt-3 pt-3 border-top">
             <label class="form-label" style="color: var(--primary-dark); font-size: 0.85rem;">👥 Jumlah Keseluruhan Pesakit</label>
-            <input type="number" id="jumlahPesakit" class="form-control text-primary" style="font-size: 1.1rem;" value="0" min="0" required>
+            <input type="number" id="jumlahPesakit" class="form-control text-primary" style="font-size: 1.1rem; font-weight: 700;" value="0" min="0" required>
           </div>
         </div>
 
+        <!-- ULASAN & TINDAKAN -->
         <div class="section-title mt-2">
-          <i class="fa-solid fa-clipboard-list me-2" style="color: var(--accent-blue);"></i> Ulasan & Tindakan
+          <i class="fa-solid fa-clipboard-list me-2" style="color: var(--accent-blue);"></i> Ulasan & Isu Operasi
         </div>
 
         <div class="mb-3">
           <label class="form-label"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Isu / Masalah Berbangkit:</label>
-          <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taipkan rincian masalah jika ada..."></textarea>
+          <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taipkan rincian masalah/fasiliti jika ada..."></textarea>
         </div>
 
-        <div class="mb-2">
+        <div class="mb-3">
           <label class="form-label"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan Susulan (Jika Perlu):</label>
           <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Taipkan tindakan yang telah diambil..."></textarea>
         </div>
@@ -204,7 +226,7 @@
   <footer class="pro-footer">
     <div class="container">
       <p>
-        &copy; 2026 <span class="author">Yassin Razak</span> 
+        &copy; 2026 <span class="author">Yassin Razak MD</span> 
         <span class="divider">|</span> 
         <span class="rights">All Rights Reserved</span>
       </p>
@@ -221,9 +243,21 @@
         window.location.href = "index.html";
       } else {
         currentUser = JSON.parse(user);
-        document.getElementById('userDisplay').innerText = currentUser.nama;
+        document.getElementById('userDisplay').innerText = currentUser.nama || currentUser.username;
+        document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
       }
     };
+
+    function calculateTotal() {
+      const red = parseInt(document.getElementById('redZone').value) || 0;
+      const yellow = parseInt(document.getElementById('yellowZone').value) || 0;
+      const green = parseInt(document.getElementById('greenZone').value) || 0;
+      const asthma = parseInt(document.getElementById('asthmaBay').value) || 0;
+      const obs = parseInt(document.getElementById('observationBay').value) || 0;
+      const awaiting = parseInt(document.getElementById('awaitingAdmission').value) || 0;
+
+      document.getElementById('jumlahPesakit').value = red + yellow + green + asthma + obs + awaiting;
+    }
 
     function playSuccessSound() {
       try {
@@ -259,6 +293,7 @@
       box.style.borderColor = color;
       box.innerText = msg;
       box.classList.remove('d-none');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function resetForm() {
@@ -266,6 +301,7 @@
       document.getElementById('downloadSection').classList.add('d-none');
       document.getElementById('formSection').classList.remove('d-none');
       document.getElementById('alertBox').classList.add('d-none');
+      document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
       
       ['redZone', 'yellowZone', 'greenZone', 'asthmaBay', 'observationBay', 'awaitingAdmission', 'jumlahPesakit'].forEach(id => {
         document.getElementById(id).value = "0";
@@ -273,20 +309,25 @@
     }
 
     async function submitReport() {
-      document.getElementById('btnSubmit').disabled = true;
-      document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Menjana Dokumen...';
+      const btnSubmit = document.getElementById('btnSubmit');
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Menjana Dokumen & Hantar E-Mel...';
 
       const payload = {
-        action: 'submitReport',
-        currentUser: currentUser,
+        action: 'submitSupervisionReport',
+        supervisorUsername: currentUser.username,
+        supervisorName: currentUser.nama || currentUser.username,
+        supervisorEmail: currentUser.email,
+        reportDate: document.getElementById('reportDate').value,
+        shiftType: document.getElementById('shiftType').value,
         data: {
-          redZone: document.getElementById('redZone').value || 0,
-          yellowZone: document.getElementById('yellowZone').value || 0,
-          greenZone: document.getElementById('greenZone').value || 0,
-          asthmaBay: document.getElementById('asthmaBay').value || 0,
-          observationBay: document.getElementById('observationBay').value || 0,
-          awaitingAdmission: document.getElementById('awaitingAdmission').value || 0,
-          jumlahPesakit: document.getElementById('jumlahPesakit').value || 0, // TAMBAHAN DATA MANUAL
+          redZone: parseInt(document.getElementById('redZone').value) || 0,
+          yellowZone: parseInt(document.getElementById('yellowZone').value) || 0,
+          greenZone: parseInt(document.getElementById('greenZone').value) || 0,
+          asthmaBay: parseInt(document.getElementById('asthmaBay').value) || 0,
+          observationBay: parseInt(document.getElementById('observationBay').value) || 0,
+          awaitingAdmission: parseInt(document.getElementById('awaitingAdmission').value) || 0,
+          jumlahPesakit: parseInt(document.getElementById('jumlahPesakit').value) || 0,
           masalah: document.getElementById('inputMasalah').value.trim(),
           tindakan: document.getElementById('inputTindakan').value.trim()
         }
@@ -302,13 +343,13 @@
         const responseText = await res.text();
         
         if (responseText.trim().startsWith("<")) {
-          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak Apps Script.");
+          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak deployment Apps Script.");
         }
 
         const data = JSON.parse(responseText);
         
-        document.getElementById('btnSubmit').disabled = false;
-        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
 
         if (data.success) {
           showAlert(data.message, 'success');
@@ -320,12 +361,12 @@
             document.getElementById('formSection').classList.add('d-none');
           }
         } else {
-          showAlert(data.message, 'danger');
+          showAlert(data.message || 'Gagal menghantar laporan.', 'danger');
         }
       } catch (err) {
         showAlert('Ralat API: ' + err.message, 'danger');
-        document.getElementById('btnSubmit').disabled = false;
-        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
       }
     }
   </script>
