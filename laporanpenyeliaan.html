@@ -1,374 +1,335 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laporan Penyeliaan - Unit Kecemasan & Trauma HKN</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Penyeliaan - Unit Kecemasan & Trauma</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root {
-      --primary-dark: #0f172a;    
-      --accent-blue: #0284c7;
-      --accent-hover: #0369a1;
-      --text-muted: #64748b;
-      --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-      --card-bg: rgba(255, 255, 255, 0.98);
-    }
+  <style>
+    :root {
+      --primary-dark: #0f172a;    
+      --accent-blue: #0284c7;
+      --accent-hover: #0369a1;
+      --text-muted: #64748b;
+      --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --card-bg: rgba(255, 255, 255, 0.98);
+    }
 
-    body {
-      background: var(--bg-gradient);
-      font-family: 'Inter', sans-serif;
-      color: #334155;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
-    }
+    body {
+      background: var(--bg-gradient);
+      font-family: 'Inter', sans-serif;
+      color: #334155;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
 
-    .app-wrapper { width: 100%; max-width: 600px; margin: auto; }
+    .app-wrapper { width: 100%; max-width: 600px; margin: auto; }
 
-    .elegant-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
-      backdrop-filter: blur(12px);
-      padding: 2rem;
-      transition: all 0.3s ease;
-    }
+    .elegant-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
 
-    .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-    
-    .btn-back {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      color: var(--primary-dark);
-      font-weight: 600;
-      border-radius: 10px;
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-    .btn-back:hover { background: #f1f5f9; transform: translateX(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    
+    .btn-back {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--primary-dark);
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .btn-back:hover { background: #f1f5f9; transform: translateX(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
 
-    .header-title { font-weight: 800; color: var(--primary-dark); font-size: 1.1rem; margin: 0; }
-    .header-subtitle { font-weight: 600; color: var(--accent-blue); font-size: 0.75rem; text-transform: uppercase; }
+    .header-title { font-weight: 800; color: var(--primary-dark); font-size: 1.1rem; margin: 0; }
+    .header-subtitle { font-weight: 600; color: var(--accent-blue); font-size: 0.75rem; text-transform: uppercase; }
 
-    .form-control, .form-select {
-      background-color: #f8fafc;
-      border: 1px solid #cbd5e1;
-      color: var(--primary-dark);
-      border-radius: 10px;
-      padding: 0.6rem 1rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-    .form-control:focus, .form-select:focus {
-      background-color: #ffffff;
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
-    }
-    
-    .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem; letter-spacing: 0.5px; text-transform: uppercase; }
+    .form-control {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: var(--primary-dark);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .form-control:focus {
+      background-color: #ffffff;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+    }
+    
+    .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem; letter-spacing: 0.5px; text-transform: uppercase; }
 
-    .section-title {
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--primary-dark);
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-    }
+    .section-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+    }
 
-    .btn-elegant-primary {
-      background-color: var(--primary-dark);
-      color: #ffffff;
-      font-weight: 600;
-      border-radius: 12px;
-      padding: 0.9rem;
-      font-size: 0.95rem;
-      border: none;
-      transition: all 0.3s ease;
-      margin-top: 1rem;
-    }
-    .btn-elegant-primary:hover { background-color: #1e293b; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(15, 23, 42, 0.15); color: #fff; }
+    .btn-elegant-primary {
+      background-color: var(--primary-dark);
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 12px;
+      padding: 0.9rem;
+      font-size: 0.95rem;
+      border: none;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    .btn-elegant-primary:hover { background-color: #1e293b; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(15, 23, 42, 0.15); color: #fff; }
 
-    /* FOOTER PROFESIONAL */
-    .pro-footer { margin-top: 2.5rem; padding: 1.2rem 0; border-top: 1px solid #e2e8f0; text-align: center; background: transparent; }
-    .pro-footer p { margin: 0; font-size: 0.8rem; color: #64748b; font-weight: 500; letter-spacing: 0.3px; }
-    .pro-footer .author { font-weight: 700; color: #0f172a; }
-    .pro-footer .divider { margin: 0 0.6rem; color: #cbd5e1; }
-    .pro-footer .rights { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1.2px; color: #94a3b8; }
+    /* FOOTER PROFESIONAL */
+    .pro-footer { margin-top: 2.5rem; padding: 1.2rem 0; border-top: 1px solid #e2e8f0; text-align: center; background: transparent; }
+    .pro-footer p { margin: 0; font-size: 0.8rem; color: #64748b; font-weight: 500; letter-spacing: 0.3px; }
+    .pro-footer .author { font-weight: 700; color: #0f172a; }
+    .pro-footer .divider { margin: 0 0.6rem; color: #cbd5e1; }
+    .pro-footer .rights { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1.2px; color: #94a3b8; }
 
-    @media (max-width: 480px) { .elegant-card { padding: 1.5rem; } .header-title { font-size: 1rem; } }
-  </style>
+    @media (max-width: 480px) { .elegant-card { padding: 1.5rem; } .header-title { font-size: 1rem; } }
+  </style>
 </head>
 <body>
 
-  <div class="app-wrapper">
-    
-    <!-- HEADER NAV -->
-    <div class="nav-header">
-      <a href="index.html" class="btn-back text-decoration-none">
-        <i class="fa-solid fa-arrow-left me-1"></i> Utama
-      </a>
-      <div class="text-end">
-        <h6 class="header-title">Laporan Penyeliaan</h6>
-        <div id="userDisplay" class="header-subtitle">Memuatkan sesi...</div>
-      </div>
-    </div>
+  <div class="app-wrapper">
+    
+    <!-- HEADER NAV -->
+    <div class="nav-header">
+      <a href="index.html" class="btn-back text-decoration-none">
+        <i class="fa-solid fa-arrow-left me-1"></i> Utama
+      </a>
+      <div class="text-end">
+        <h6 class="header-title">Laporan Penyeliaan</h6>
+        <div id="userDisplay" class="header-subtitle">Memuatkan sesi...</div>
+      </div>
+    </div>
 
-    <!-- ALERT BOX -->
-    <div id="alertBox" class="alert d-none elegant-card text-center fw-bold py-3 mb-3 small" style="padding: 1rem!important; border-radius: 12px;" role="alert"></div>
+    <!-- ALERT BOX -->
+    <div id="alertBox" class="alert d-none elegant-card text-center fw-bold py-3 mb-3 small" style="padding: 1rem!important; border-radius: 12px;" role="alert"></div>
 
-    <!-- DOWNLOAD SECTION (HIDDEN BY DEFAULT) -->
-    <div id="downloadSection" class="elegant-card mb-3 text-center d-none" style="padding: 1.5rem;">
-      <h6 class="text-success fw-bold m-0 mb-3"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar & E-Mel Dihantar!</h6>
-      <a id="btnDownloadPDF" href="#" target="_blank" class="btn btn-elegant-primary w-100 m-0" style="background-color: #16a34a;">
-        <i class="fa-solid fa-file-arrow-down me-2"></i> Muat Turun PDF Laporan
-      </a>
-      <button class="btn btn-link text-muted mt-2 small text-decoration-none" onclick="resetForm()">
-        <i class="fa-solid fa-rotate-right me-1"></i> Hantar Laporan Baharu
-      </button>
-    </div>
+    <!-- DOWNLOAD SECTION (HIDDEN BY DEFAULT) -->
+    <div id="downloadSection" class="elegant-card mb-3 text-center d-none" style="padding: 1.5rem;">
+      <h6 class="text-success fw-bold m-0 mb-3"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar!</h6>
+      <a id="btnDownloadPDF" href="#" target="_blank" class="btn btn-elegant-primary w-100 m-0" style="background-color: #16a34a;">
+        <i class="fa-solid fa-file-arrow-down me-2"></i> Muat Turun PDF Laporan
+      </a>
+      <button class="btn btn-link text-muted mt-2 small text-decoration-none" onclick="resetForm()">
+        <i class="fa-solid fa-rotate-right me-1"></i> Hantar Laporan Baharu
+      </button>
+    </div>
 
-    <!-- FORM SECTION -->
-    <div id="formSection" class="elegant-card">
-      <form id="penyeliaanForm" onsubmit="event.preventDefault(); submitReport();">
-        
-        <!-- MAKLUMAT SYIF & TARIKH -->
-        <div class="section-title">
-          <i class="fa-regular fa-clock me-2" style="color: var(--accent-blue);"></i> Syif & Tarikh Laporan
-        </div>
-        <div class="row g-3 mb-4">
-          <div class="col-md-6">
-            <label class="form-label">Tarikh Laporan</label>
-            <input type="date" id="reportDate" class="form-control" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Syif Bertugas</label>
-            <select id="shiftType" class="form-select" required>
-              <option value="Pagi">Pagi (7:00 AM - 2:00 PM)</option>
-              <option value="Petang">Petang (2:00 PM - 9:00 PM)</option>
-              <option value="Malam">Malam (9:00 PM - 7:00 AM)</option>
-            </select>
-          </div>
-        </div>
+    <!-- FORM SECTION -->
+    <div id="formSection" class="elegant-card">
+      <form id="penyeliaanForm" onsubmit="event.preventDefault(); submitReport();">
+        <div class="section-title">
+          <i class="fa-solid fa-hospital-user me-2" style="color: var(--accent-blue);"></i> Bilangan Pesakit Semasa
+        </div>
+        
+        <div class="row g-3 mb-4">
+          <div class="col-6">
+            <label class="form-label text-danger">🔴 Red Zone</label>
+            <input type="number" id="redZone" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label" style="color: #d97706;">🟡 Yellow Zone</label>
+            <input type="number" id="yellowZone" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label text-success">🟢 Green Zone</label>
+            <input type="number" id="greenZone" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label text-info">🫁 Asthma Bay</label>
+            <input type="number" id="asthmaBay" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label" style="color: var(--primary-dark);">🛋️ Obs Bay</label>
+            <input type="number" id="observationBay" class="form-control" value="0" min="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label text-secondary">⏳ Awaiting Adm.</label>
+            <input type="number" id="awaitingAdmission" class="form-control" value="0" min="0">
+          </div>
+          
+          <!-- INPUT JUMLAH KESELURUHAN MANUAL -->
+          <div class="col-12 mt-3 pt-3 border-top">
+            <label class="form-label" style="color: var(--primary-dark); font-size: 0.85rem;">👥 Jumlah Keseluruhan Pesakit</label>
+            <input type="number" id="jumlahPesakit" class="form-control text-primary" style="font-size: 1.1rem;" value="0" min="0" required>
+          </div>
+        </div>
 
-        <!-- BILANGAN PESAKIT SEMASA -->
-        <div class="section-title">
-          <i class="fa-solid fa-hospital-user me-2" style="color: var(--accent-blue);"></i> Bilangan Pesakit Semasa
-        </div>
-        
-        <div class="row g-3 mb-4">
-          <div class="col-6">
-            <label class="form-label text-danger">🔴 Red Zone</label>
-            <input type="number" id="redZone" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
-          </div>
-          <div class="col-6">
-            <label class="form-label" style="color: #d97706;">🟡 Yellow Zone</label>
-            <input type="number" id="yellowZone" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
-          </div>
-          <div class="col-6">
-            <label class="form-label text-success">🟢 Green Zone</label>
-            <input type="number" id="greenZone" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
-          </div>
-          <div class="col-6">
-            <label class="form-label text-info">🫁 Asthma Bay</label>
-            <input type="number" id="asthmaBay" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
-          </div>
-          <div class="col-6">
-            <label class="form-label" style="color: var(--primary-dark);">🛋️ Obs Bay</label>
-            <input type="number" id="observationBay" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
-          </div>
-          <div class="col-6">
-            <label class="form-label text-secondary">⏳ Awaiting Adm.</label>
-            <input type="number" id="awaitingAdmission" class="form-control zone-input" value="0" min="0" oninput="calculateTotal()">
-          </div>
-          
-          <!-- INPUT JUMLAH KESELURUHAN (AUTO & MANUAL) -->
-          <div class="col-12 mt-3 pt-3 border-top">
-            <label class="form-label" style="color: var(--primary-dark); font-size: 0.85rem;">👥 Jumlah Keseluruhan Pesakit</label>
-            <input type="number" id="jumlahPesakit" class="form-control text-primary" style="font-size: 1.1rem; font-weight: 700;" value="0" min="0" required>
-          </div>
-        </div>
+        <div class="section-title mt-2">
+          <i class="fa-solid fa-clipboard-list me-2" style="color: var(--accent-blue);"></i> Ulasan & Tindakan
+        </div>
 
-        <!-- ULASAN & TINDAKAN -->
-        <div class="section-title mt-2">
-          <i class="fa-solid fa-clipboard-list me-2" style="color: var(--accent-blue);"></i> Ulasan & Isu Operasi
-        </div>
+        <div class="mb-3">
+          <label class="form-label"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Isu / Masalah Berbangkit:</label>
+          <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taipkan rincian masalah jika ada..."></textarea>
+        </div>
 
-        <div class="mb-3">
-          <label class="form-label"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Isu / Masalah Berbangkit:</label>
-          <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taipkan rincian masalah/fasiliti jika ada..."></textarea>
-        </div>
+        <div class="mb-2">
+          <label class="form-label"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan Susulan (Jika Perlu):</label>
+          <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Taipkan tindakan yang telah diambil..."></textarea>
+        </div>
 
-        <div class="mb-3">
-          <label class="form-label"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan Susulan (Jika Perlu):</label>
-          <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Taipkan tindakan yang telah diambil..."></textarea>
-        </div>
+        <button type="submit" id="btnSubmit" class="btn-elegant-primary w-100">
+          <i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel
+        </button>
+      </form>
+    </div>
 
-        <button type="submit" id="btnSubmit" class="btn-elegant-primary w-100">
-          <i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel
-        </button>
-      </form>
-    </div>
+  </div>
 
-  </div>
+  <footer class="pro-footer">
+    <div class="container">
+      <p>
+        &copy; 2026 <span class="author">Yassin Razak</span> 
+        <span class="divider">|</span> 
+        <span class="rights">All Rights Reserved</span>
+      </p>
+    </div>
+  </footer>
 
-  <footer class="pro-footer">
-    <div class="container">
-      <p>
-        &copy; 2026 <span class="author">Yassin Razak MD</span> 
-        <span class="divider">|</span> 
-        <span class="rights">All Rights Reserved</span>
-      </p>
-    </div>
-  </footer>
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbx21hpI88izcRUUIaq77sVTSQoTmG3riExl8azhaYf2jk0p3qyc2KSSDe5uNbv3SX8XPg/exec";
+    let currentUser = null;
 
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbx21hpI88izcRUUIaq77sVTSQoTmG3riExl8azhaYf2jk0p3qyc2KSSDe5uNbv3SX8XPg/exec";
-    let currentUser = null;
+    window.onload = function() {
+      const user = localStorage.getItem('currentUser');
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        currentUser = JSON.parse(user);
+        document.getElementById('userDisplay').innerText = currentUser.nama;
+      }
+    };
 
-    window.onload = function() {
-      const user = localStorage.getItem('currentUser');
-      if (!user) {
-        window.location.href = "index.html";
-      } else {
-        currentUser = JSON.parse(user);
-        document.getElementById('userDisplay').innerText = currentUser.nama || currentUser.username;
-        document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
-      }
-    };
+    function playSuccessSound() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.frequency.setValueAtTime(523.25, ctx.currentTime);
+        gain1.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+        osc1.connect(gain1); gain1.connect(ctx.destination);
 
-    function calculateTotal() {
-      const red = parseInt(document.getElementById('redZone').value) || 0;
-      const yellow = parseInt(document.getElementById('yellowZone').value) || 0;
-      const green = parseInt(document.getElementById('greenZone').value) || 0;
-      const asthma = parseInt(document.getElementById('asthmaBay').value) || 0;
-      const obs = parseInt(document.getElementById('observationBay').value) || 0;
-      const awaiting = parseInt(document.getElementById('awaitingAdmission').value) || 0;
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.frequency.setValueAtTime(783.99, ctx.currentTime + 0.12);
+        gain2.gain.setValueAtTime(0.2, ctx.currentTime + 0.12);
+        gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        osc2.connect(gain2); gain2.connect(ctx.destination);
 
-      document.getElementById('jumlahPesakit').value = red + yellow + green + asthma + obs + awaiting;
-    }
+        osc1.start(ctx.currentTime); osc1.stop(ctx.currentTime + 0.15);
+        osc2.start(ctx.currentTime + 0.12); osc2.stop(ctx.currentTime + 0.4);
+      } catch (e) {}
+    }
 
-    function playSuccessSound() {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
-        const osc1 = ctx.createOscillator();
-        const gain1 = ctx.createGain();
-        osc1.frequency.setValueAtTime(523.25, ctx.currentTime);
-        gain1.gain.setValueAtTime(0.15, ctx.currentTime);
-        gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
-        osc1.connect(gain1); gain1.connect(ctx.destination);
+    function showAlert(msg, type) {
+      const box = document.getElementById('alertBox');
+      const bg = type === 'success' ? '#dcfce7' : '#fee2e2';
+      const color = type === 'success' ? '#16a34a' : '#dc2626';
+      
+      box.style.backgroundColor = bg;
+      box.style.color = color;
+      box.style.borderColor = color;
+      box.innerText = msg;
+      box.classList.remove('d-none');
+    }
 
-        const osc2 = ctx.createOscillator();
-        const gain2 = ctx.createGain();
-        osc2.frequency.setValueAtTime(783.99, ctx.currentTime + 0.12);
-        gain2.gain.setValueAtTime(0.2, ctx.currentTime + 0.12);
-        gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-        osc2.connect(gain2); gain2.connect(ctx.destination);
+    function resetForm() {
+      document.getElementById('penyeliaanForm').reset();
+      document.getElementById('downloadSection').classList.add('d-none');
+      document.getElementById('formSection').classList.remove('d-none');
+      document.getElementById('alertBox').classList.add('d-none');
+      
+      ['redZone', 'yellowZone', 'greenZone', 'asthmaBay', 'observationBay', 'awaitingAdmission', 'jumlahPesakit'].forEach(id => {
+        document.getElementById(id).value = "0";
+      });
+    }
 
-        osc1.start(ctx.currentTime); osc1.stop(ctx.currentTime + 0.15);
-        osc2.start(ctx.currentTime + 0.12); osc2.stop(ctx.currentTime + 0.4);
-      } catch (e) {}
-    }
+    async function submitReport() {
+      document.getElementById('btnSubmit').disabled = true;
+      document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Menjana Dokumen...';
 
-    function showAlert(msg, type) {
-      const box = document.getElementById('alertBox');
-      const bg = type === 'success' ? '#dcfce7' : '#fee2e2';
-      const color = type === 'success' ? '#16a34a' : '#dc2626';
-      
-      box.style.backgroundColor = bg;
-      box.style.color = color;
-      box.style.borderColor = color;
-      box.innerText = msg;
-      box.classList.remove('d-none');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+      const payload = {
+        action: 'submitReport',
+        currentUser: currentUser,
+        data: {
+          redZone: document.getElementById('redZone').value || 0,
+          yellowZone: document.getElementById('yellowZone').value || 0,
+          greenZone: document.getElementById('greenZone').value || 0,
+          asthmaBay: document.getElementById('asthmaBay').value || 0,
+          observationBay: document.getElementById('observationBay').value || 0,
+          awaitingAdmission: document.getElementById('awaitingAdmission').value || 0,
+          jumlahPesakit: document.getElementById('jumlahPesakit').value || 0, // TAMBAHAN DATA MANUAL
+          masalah: document.getElementById('inputMasalah').value.trim(),
+          tindakan: document.getElementById('inputTindakan').value.trim()
+        }
+      };
 
-    function resetForm() {
-      document.getElementById('penyeliaanForm').reset();
-      document.getElementById('downloadSection').classList.add('d-none');
-      document.getElementById('formSection').classList.remove('d-none');
-      document.getElementById('alertBox').classList.add('d-none');
-      document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
-      
-      ['redZone', 'yellowZone', 'greenZone', 'asthmaBay', 'observationBay', 'awaitingAdmission', 'jumlahPesakit'].forEach(id => {
-        document.getElementById(id).value = "0";
-      });
-    }
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
 
-    async function submitReport() {
-      const btnSubmit = document.getElementById('btnSubmit');
-      btnSubmit.disabled = true;
-      btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Menjana Dokumen & Hantar E-Mel...';
+        const responseText = await res.text();
+        
+        if (responseText.trim().startsWith("<")) {
+          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak Apps Script.");
+        }
 
-      const payload = {
-        action: 'submitSupervisionReport',
-        supervisorUsername: currentUser.username,
-        supervisorName: currentUser.nama || currentUser.username,
-        supervisorEmail: currentUser.email,
-        reportDate: document.getElementById('reportDate').value,
-        shiftType: document.getElementById('shiftType').value,
-        data: {
-          redZone: parseInt(document.getElementById('redZone').value) || 0,
-          yellowZone: parseInt(document.getElementById('yellowZone').value) || 0,
-          greenZone: parseInt(document.getElementById('greenZone').value) || 0,
-          asthmaBay: parseInt(document.getElementById('asthmaBay').value) || 0,
-          observationBay: parseInt(document.getElementById('observationBay').value) || 0,
-          awaitingAdmission: parseInt(document.getElementById('awaitingAdmission').value) || 0,
-          jumlahPesakit: parseInt(document.getElementById('jumlahPesakit').value) || 0,
-          masalah: document.getElementById('inputMasalah').value.trim(),
-          tindakan: document.getElementById('inputTindakan').value.trim()
-        }
-      };
+        const data = JSON.parse(responseText);
+        
+        document.getElementById('btnSubmit').disabled = false;
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
 
-      try {
-        const res = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
-
-        const responseText = await res.text();
-        
-        if (responseText.trim().startsWith("<")) {
-          throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak deployment Apps Script.");
-        }
-
-        const data = JSON.parse(responseText);
-        
-        btnSubmit.disabled = false;
-        btnSubmit.innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
-
-        if (data.success) {
-          showAlert(data.message, 'success');
-          playSuccessSound();
-          
-          if (data.pdfDownloadUrl || data.pdfUrl) {
-            document.getElementById('btnDownloadPDF').href = data.pdfDownloadUrl || data.pdfUrl;
-            document.getElementById('downloadSection').classList.remove('d-none');
-            document.getElementById('formSection').classList.add('d-none');
-          }
-        } else {
-          showAlert(data.message || 'Gagal menghantar laporan.', 'danger');
-        }
-      } catch (err) {
-        showAlert('Ralat API: ' + err.message, 'danger');
-        btnSubmit.disabled = false;
-        btnSubmit.innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
-      }
-    }
-  </script>
+        if (data.success) {
+          showAlert(data.message, 'success');
+          playSuccessSound();
+          
+          if (data.pdfDownloadUrl || data.pdfUrl) {
+            document.getElementById('btnDownloadPDF').href = data.pdfDownloadUrl || data.pdfUrl;
+            document.getElementById('downloadSection').classList.remove('d-none');
+            document.getElementById('formSection').classList.add('d-none');
+          }
+        } else {
+          showAlert(data.message, 'danger');
+        }
+      } catch (err) {
+        showAlert('Ralat API: ' + err.message, 'danger');
+        document.getElementById('btnSubmit').disabled = false;
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+      }
+    }
+  </script>
 </body>
 </html>
+
+update laporanpenyeliaEDHKN.html
